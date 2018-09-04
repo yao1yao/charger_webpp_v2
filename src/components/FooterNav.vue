@@ -25,23 +25,22 @@ export default {
 </script>
 <style lang="stylus">
 @import "./../assets/stylus/common.stylus"
-    $bgcolor = #EDF7FF
     .footbar
         display flex
         width 100%
-        background-color $bgcolor
         &__icon
             display inline-block
-            font-size  $bigFontSize
-            line-height  $bigLineHeight
+            font-size  1.1rem
+            line-height  1.1rem
         &__label
             text-align center
-            font-size $minFontSize
-            line-height $minLineHeight
+            font-size .9rem
+            line-height .9rem
         &__item
             flex 1
             text-decoration none
-            line-height 25px
+            padding-top .4rem
+            line-height 1.7rem
             color gray 
             vertical-align center
             text-align center

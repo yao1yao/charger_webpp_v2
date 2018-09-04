@@ -25,7 +25,7 @@ body
 ul li
   list-style none
 
-input, a, span
+{selector('input', 'a', 'span')}
   -webkit-tap-highlight-color #b1b1b1
 
 
@@ -45,18 +45,16 @@ user-select()
   list-style none
   user-select none
   width 100%
-  &__primary
+  &-primary
     padding 6px 12px
-    border 1px solid transparent
     font-size 1rem
     border-radius 3rem
-    background-color #f7f9b9
-    color orange
+    background-color #5DC4FF
+    color white
     &:active:enabled
-      background-color rgba(255, 125, 0, 0.6)
-      color #e0e9ff
+      border 2px solid white
     &:disabled
-      background-color rgba(128, 128, 128, 0.28)
+      opacity 0.5
       color #656161
 
 .float
@@ -71,10 +69,44 @@ user-select()
   background-color rgba(128, 128, 128, 0.28);
   color #656161;
 
-$minFontSize = 10px
-$minLineHeight = 10px
-$fontSize = 14px
-$lineHeight = 14px
-$bigFontSize = 16px
-$minLineHeight = 16px
+
+.bg
+  height: 100%;
+  padding: 0 1rem;
+  background: -webkit-linear-gradient(rgb(119, 210, 255), rgb(134, 229, 241), rgb(17, 123, 183));
+  background: -o-linear-gradient(rgb(119, 210, 255), rgb(134, 229, 241), rgb(17, 123, 183));
+  background: -moz-linear-gradient(rgb(119, 210, 255), rgb(134, 229, 241), rgb(17, 123, 183));
+  background: linear-gradient(rgb(119, 210, 255), rgb(134, 229, 241), rgb(17, 123, 183));
+
+border-radius(n)
+    vendor('border-radius', n)
+
+box-shadow()
+    vendor('box-shadow', arguments)
+
+vendor(prop, args)
+    -webkit-{prop} args
+    -moz-{prop} args
+    {prop} args
+
+
+
+widthHeightLineHeightFontSize($width,$height,$lineHegiht,$fontSize)
+  width $width
+  height $height
+  line-hegiht $lineHegiht 
+  font-size $fontSize
+
+beforeAfter($height, $width, $color, $top, $direction, $length)
+  content ''
+  display inline-block
+  height $height
+  width $width
+  background-color $color
+  position absolute
+  top $top
+  if $direction
+      left $length
+  else 
+      right $length
 

@@ -53,6 +53,7 @@ user-select()
     color white
     &:active:enabled
       border 2px solid white
+      border-radius 3rem
     &:disabled
       opacity 0.5
       color #656161
@@ -72,7 +73,6 @@ user-select()
 
 .bg
   height: 100%;
-  padding: 0 1rem;
   background: -webkit-linear-gradient(rgb(119, 210, 255), rgb(134, 229, 241), rgb(17, 123, 183));
   background: -o-linear-gradient(rgb(119, 210, 255), rgb(134, 229, 241), rgb(17, 123, 183));
   background: -moz-linear-gradient(rgb(119, 210, 255), rgb(134, 229, 241), rgb(17, 123, 183));

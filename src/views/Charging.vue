@@ -24,10 +24,10 @@ export default {
     name: 'charging',
      methods:{
       inputChargingNumber(){
-        //this.$router.push({path: '/charger/input_identfiy'})
+        this.$router.push({path: '/charger/input_identify'})
       },
       getChargerStatus(){
-        //this.$router.push({path: '/charger/charging_status'})
+        this.$router.push({path: '/charger/charging_status'})
       }
     }
 }

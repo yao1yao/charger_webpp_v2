@@ -7,6 +7,8 @@ import ChargingStatus from './views/ChargingStatus'
 import ChargerRecord from './views/ChargerRecord'
 import ChargerDetail from './views/ChargerDetail'
 import FeedBack from './views/FeedBack'
+import Settings from  './views/Settings'
+import Login from './views/Login'
 Vue.use(Router)
 
 export default new Router({
@@ -18,7 +20,8 @@ export default new Router({
     {path: '/charger/status', component: ChargingStatus},
     {path: '/charger/record', component: ChargerRecord},
     {path: '/charger/detail', component: ChargerDetail},
-    {path: '/user/feedback', component: FeedBack},
-
+    {path: '/feedback', component: FeedBack},
+    {path: '/settings', component: Settings},
+    {path: '/login', component: Login}
   ]
 })

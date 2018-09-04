@@ -26,7 +26,7 @@ export default {
     name: "ChargerStatus",
     methods:{
         setEndCharging(){
-            this.$router.push({path: 'charger/record'})
+        this.$router.push({path: '/charger/record'})
         }
     }
 }

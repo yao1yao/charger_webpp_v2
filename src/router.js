@@ -4,6 +4,8 @@ import Charging from './views/Charging'
 import User from './views/User'
 import InputIdentify from './views/InputIdentify'
 import ChargingStatus from './views/ChargingStatus'
+import ChargerRecord from './views/ChargerRecord'
+import ChargerDetail from './views/ChargerDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -12,6 +14,8 @@ export default new Router({
     {path: '/charger', component: Charging},
     {path: '/user', component: User},
     {path: '/charger/input_identify', component: InputIdentify},
-    {path: '/charger/status', component: ChargingStatus}
+    {path: '/charger/status', component: ChargingStatus},
+    {path: '/charger/record', component: ChargerRecord},
+    {path: '/charger/detail', component: ChargerDetail}
   ]
 })

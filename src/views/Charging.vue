@@ -27,7 +27,7 @@ export default {
         this.$router.push({path: '/charger/input_identify'})
       },
       getChargerStatus(){
-        this.$router.push({path: '/charger/charging_status'})
+        this.$router.push({path: '/charger/status'})
       }
     }
 }

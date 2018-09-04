@@ -39,7 +39,7 @@ export default {
         &__item
             flex 1
             text-decoration none
-            padding-top .4rem
+            padding-top .2rem
             line-height 1.7rem
             color gray 
             vertical-align center

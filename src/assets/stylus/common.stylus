@@ -94,7 +94,7 @@ vendor(prop, args)
 widthHeightLineHeightFontSize($width,$height,$lineHegiht,$fontSize)
   width $width
   height $height
-  line-hegiht $lineHegiht 
+  line-height $lineHegiht 
   font-size $fontSize
 
 beforeAfter($height, $width, $color, $top, $direction, $length)

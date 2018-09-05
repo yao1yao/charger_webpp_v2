@@ -22,7 +22,7 @@
                     button(@click="logIn" class="btn btn-primary") 登录
                 div.login__btn-register
                     button(@click="register" class="btn btn-primary") 注册
-                p.login__passwd 忘记密码?
+                p(class="login__passwd" @click="lost") 忘记密码?
                 div.login__select
                     p.login__select-word or
                     p.login__way
@@ -38,6 +38,9 @@ export default {
         },
         register(){
             this.$router.push({path: '/register'})
+        },
+        lost(){
+            this.$router.push({path: '/forgot_password'})
         }
     }
 }
@@ -83,6 +86,7 @@ export default {
         &__btn-register
             width 85%
             margin 0 auto
+            boder none
             &
                 margin-top 1rem
         &__passwd

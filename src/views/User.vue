@@ -26,7 +26,7 @@
         div.menu
             +menuItem("{path:'/recharge'}","{path:'/settings'}","icon-withdraw-cash","icon-user-account","用户充值","设置")
             +menuItem("{path:'/charger/record'}","{path:'/user/deposit_record'}","icon-charging-status","icon-recharge-record","充电记录","充值记录")
-            +menuItem("{path:'/user/tutorial'}","{path:'/feedback'}","icon-user-help","icon-user-advice","使用教程","意见反馈")
+            +menuItem("{path:'/course'}","{path:'/feedback'}","icon-user-help","icon-user-advice","使用教程","意见反馈")
 </template>
 <script>
 export default {

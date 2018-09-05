@@ -72,11 +72,11 @@ export default {
             &:after
                 beforeAfter(1px, 34%, $whiteColor, 46.7%, 0, 0)
         &__btn
-            width: 90%
+            width 90%
             height 1.5rem
             margin 2rem auto
-            border-radius(2rem)
-
+            border none
+            
 </style>
 
 

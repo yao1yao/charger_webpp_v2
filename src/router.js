@@ -10,6 +10,8 @@ import FeedBack from './views/FeedBack'
 import Settings from  './views/Settings'
 import Login from './views/Login'
 import Register from './views/Register'
+import ForgotPassword from './views/ForgotPassword'
+import Course from './views/Course'
 Vue.use(Router)
 
 export default new Router({
@@ -24,6 +26,8 @@ export default new Router({
     {path: '/feedback', component: FeedBack},
     {path: '/settings', component: Settings},
     {path: '/register',component: Register},
-    {path: '/login', component: Login}
+    {path: '/login', component: Login},
+    {path: '/forgot_password',component: ForgotPassword},
+    {path: '/course',component: Course}
   ]
 })

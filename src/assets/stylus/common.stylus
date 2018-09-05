@@ -50,6 +50,7 @@ user-select()
     font-size 1rem
     border-radius 3rem
     background-color #5DC4FF
+    border-color none
     color white
     &:active:enabled
       border 2px solid white

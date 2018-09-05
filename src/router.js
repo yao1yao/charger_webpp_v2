@@ -9,6 +9,7 @@ import ChargerDetail from './views/ChargerDetail'
 import FeedBack from './views/FeedBack'
 import Settings from  './views/Settings'
 import Login from './views/Login'
+import Register from './views/Register'
 Vue.use(Router)
 
 export default new Router({
@@ -22,6 +23,7 @@ export default new Router({
     {path: '/charger/detail', component: ChargerDetail},
     {path: '/feedback', component: FeedBack},
     {path: '/settings', component: Settings},
+    {path: '/register',component: Register},
     {path: '/login', component: Login}
   ]
 })

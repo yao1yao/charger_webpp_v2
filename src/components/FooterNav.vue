@@ -30,7 +30,7 @@ export default {
         width 100%
         &__icon
             display inline-block
-            font-size  1.1rem
+            font-size  1.5rem
             line-height  1.1rem
         &__label
             text-align center
@@ -39,15 +39,15 @@ export default {
         &__item
             flex 1
             text-decoration none
-            padding-top .2rem
-            line-height 1.7rem
+            padding-top .5rem
+            line-height 1.3rem
             color gray 
             vertical-align center
             text-align center
             user-select none
 
 .router-link-exact-active
-    color #98B257
+    color #9DC34C
 
 </style>
 

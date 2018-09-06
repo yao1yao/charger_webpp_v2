@@ -12,6 +12,8 @@ import Login from './views/Login'
 import Register from './views/Register'
 import ForgotPassword from './views/ForgotPassword'
 import Course from './views/Course'
+import RechargeRecord from './views/RechargeRecord'
+import Account from './views/Account'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +30,8 @@ export default new Router({
     {path: '/register',component: Register},
     {path: '/login', component: Login},
     {path: '/forgot_password',component: ForgotPassword},
-    {path: '/course',component: Course}
+    {path: '/course',component: Course},
+    {path: '/recharge_record',component: RechargeRecord},
+    {path: '/account',component: Account},
   ]
 })

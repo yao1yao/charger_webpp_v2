@@ -14,6 +14,8 @@ import ForgotPassword from './views/ForgotPassword'
 import Course from './views/Course'
 import RechargeRecord from './views/RechargeRecord'
 import Account from './views/Account'
+import Recharge from './views/Recharge'
+import MonthlyFee from './views/MonthlyFee'
 Vue.use(Router)
 
 export default new Router({
@@ -33,5 +35,7 @@ export default new Router({
     {path: '/course',component: Course},
     {path: '/recharge_record',component: RechargeRecord},
     {path: '/account',component: Account},
+    {path: '/recharge',component: Recharge},
+    {path: '/monthly_fee',component: MonthlyFee},
   ]
 })

@@ -25,9 +25,9 @@ body
 ul li
   list-style none
 
-{selector('input', 'a', 'span')}
-  -webkit-tap-highlight-color #b1b1b1
-
+input, a, button
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+    text-decoration none
 
 user-select()
   -webkit-user-select arguments

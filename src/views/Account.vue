@@ -5,7 +5,8 @@
                 p.account__item-content 可用余额: 20.5 ￥
                 p.account__item-content 冻结金额: 10.5 ￥
             div.account__btn
-                button(@click="recharge" class="btn btn-primary account__btn-recharge") 充值
+                button(@click="recharge" class="btn btn-primary account__btn-recharger") 充值
+            div.account__btn
                 button(@click="deposit" class="btn btn-primary") 提现
 
 </template>
@@ -27,7 +28,7 @@ export default {
 <style lang="stylus">
     .account
         &__item
-            margin 4rem auto 
+            margin 5.5rem auto 
             &-icon
                 font-size 4rem
             &-content
@@ -36,9 +37,7 @@ export default {
                 line-height 2rem
         &__btn
             width 85%
-            margin 6rem auto
-            &-recharge
-                margin-bottom 1rem
+            margin 1.5rem auto
         
     
 </style>

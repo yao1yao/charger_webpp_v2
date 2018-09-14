@@ -40,7 +40,7 @@ export default {
             this.$router.push({path: '/register'})
         },
         lost(){
-            this.$router.push({path: '/forgot_password'})
+            this.$router.push({path: '/forgot-password'})
         }
     }
 }

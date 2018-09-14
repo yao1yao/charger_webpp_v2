@@ -16,6 +16,7 @@ import RechargeRecord from './views/RechargeRecord'
 import Account from './views/Account'
 import Recharge from './views/Recharge'
 import MonthlyFee from './views/MonthlyFee'
+import ViewError from './views/Error.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -23,7 +24,7 @@ export default new Router({
   routes: [
     {path: '/charger', component: Charging},
     {path: '/user', component: User},
-    {path: '/charger/input_identify', component: InputIdentify},
+    {path: '/charger/input-identify', component: InputIdentify},
     {path: '/charger/status', component: ChargingStatus},
     {path: '/charger/record', component: ChargerRecord},
     {path: '/charger/detail', component: ChargerDetail},
@@ -31,11 +32,12 @@ export default new Router({
     {path: '/settings', component: Settings},
     {path: '/register',component: Register},
     {path: '/login', component: Login},
-    {path: '/forgot_password',component: ForgotPassword},
+    {path: '/forgot-password',component: ForgotPassword},
     {path: '/course',component: Course},
-    {path: '/recharge_record',component: RechargeRecord},
+    {path: '/recharge-record',component: RechargeRecord},
     {path: '/account',component: Account},
     {path: '/recharge',component: Recharge},
-    {path: '/monthly_fee',component: MonthlyFee},
+    {path: '/monthly-fee',component: MonthlyFee},
+    {path: '/error',component: ViewError},
   ]
 })

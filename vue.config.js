@@ -2,7 +2,7 @@ module.exports={
     // eslint-loader 是否在保存的时候检查
     lintOnSave: false,
     // 基本路径
-    baseUrl: './',
+    baseUrl: '',
     // 静态资源目录
     assetsDir: 'static',
     // 输出文件目录
@@ -14,19 +14,19 @@ module.exports={
     productionSourceMap: true,
     // webpack-dev-server 相关配置
     devServer:{
-        host: 'localhost',
-        port: 8080,
-        https: false,
-        hotOnly: false,
-        //proxy: null, // 设置代理
         // 配置多个代理
-        // proxy: {
-        //   "/api":{
-        //       target: "",
-        //       ws:true,
-        //       changeOrigin: true
-        //   }
-        // }
+        port: 8081,
+        proxy: {
+          "/v1":{
+              target: "http://charger.natapp1.cc/",
+              ws:true,
+              changeOrigin: true
+            },
+           "/wechat":{
+               target: "http://charger.natapp1.cc/",
+               ws:true,
+               changeOrigin: true
+           }
+        }
     }
-
 }

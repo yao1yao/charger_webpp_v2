@@ -4,32 +4,51 @@
             router-link( class="recharge__hd-item" :to="{path:'/recharge'}")
                 span(class="icon-recharge-record recharge__hd-icon")
                 p.recharge__hd-text 充值
-            router-link(class="recharge__hd-item" :to="{path:'/monthly_fee'}" )
+            router-link(class="recharge__hd-item" :to="{path:'/monthly-fee'}" )
                 span(class="icon-recharge-clock recharge__hd-icon")
                 p.recharge__hd-text 月费
         p.recharge__title 选择充值面额
         div.recharge__bd
             div.recharge__bd-item
-                a(href="javascript:;" class="recharge__money recharge__money-on") 50 元
-                a(href="javascript:;" class="recharge__money") 100 元
-                a(href="javascript:;" class="recharge__money") 300 元
-            div.recharge__bd-item
-                a(href="javascript:;" class="recharge__money") 500 元
-                a(href="javascript:;" class="recharge__money") 1000 元
-                a(href="javascript:;" class="recharge__money") 2000 元
+                a(v-for="item in selectMoney" @click="rechargerMoney=item.value" :class="{'recharge__money-on': item.value==rechargerMoney}"  href="javascript:;" class="recharge__money") {{item.value}} 元
             div.recharge__number
-                input(type="number" placeholder="请输入大于 50 充值面额" class="recharge__input")
-            p.recharge__show 238 ￥     
+                input(type="number" placeholder="请输入大于 50 充值面额" class="recharge__input" v-model="rechargerMoney")
+            p(class="recharge__show") {{rechargerMoney}} ￥
         div.recharge__btn
-                    button(@click="pay" class="btn btn-primary") 微信支付
+            button(@click="pay" class="btn btn-primary") 立即充值
 </template>
 
 <script>
+import {pay} from './../api/pay'
 export default {
     name:"Recharge",
+    data () {
+        return {
+            rechargerMoney: null,
+            selectMoney:[
+                {value:50},
+                {value:100},
+                {value:300},
+                {value:500},
+                {value:1000},
+                {value:2000},
+            ]
+        }
+    },
     methods:{
-        pay(){
-
+        pay(){ 
+            console.log(this.rechargerMoney)
+            let self = this
+            let rechargeMoney= self.rechargerMoney
+            let openId = "omPtpwg8ezeS_cVGGROfIzSQUZdw"
+            let userId = 71
+            pay({
+                openId,
+                rechargeMoney,
+                userId
+            }).then(function(){
+                // 更新当前总余额
+            })
         }
     }
 }
@@ -63,18 +82,16 @@ export default {
             color #8d90a1
         &__bd
             width 90%
-            height 12rem
+            height 8rem
             margin 0 auto 
             &-item
-                display flex
                 width 100%
                 padding-top 1rem
         &__money
-            flex 1
-            display block
-            widthHeightLineHeightFontSize(1rem, 1.5rem, 1.5rem,.7rem)
-            margin 4px
-            padding .5rem 0
+            display inline-block
+            widthHeightLineHeightFontSize(45%, 1.5rem, 1.5rem,.9rem)
+            margin 5px
+            padding 1rem 0
             color #a5a5a5
             border 1px solid #a5a5a5
             border-radius(12px)
@@ -84,9 +101,9 @@ export default {
                 color #fff
         &__number
             width 100%
-            padding-top 1rem
+            margin-top 1rem
         &__input
-            widthHeightLineHeightFontSize(100%, 2.5rem, 2.5rem, 1rem)
+            widthHeightLineHeightFontSize(95%, 2rem, 2rem, 1rem)
             outline none
             border 1px solid #dbdbdb
             text-indent .5rem
@@ -105,7 +122,9 @@ export default {
                 beforeAfter(1px, 35%, #52bcf8, 90%, 0, 0)
         &__btn
             width 85%
-            margin 5rem auto 
+            beforeAfter(0, 85%, #52bcf8, 50%, 1, 50%)
+            margin-top: 45%
+            margin-left: -42%
 
 
 </style>

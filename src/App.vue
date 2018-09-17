@@ -4,14 +4,38 @@
     <router-view/>
     </div>
     <footer-nav></footer-nav>
+     <loading v-show="loading"></loading>
+    <charger-toast
+                v-bind="toast"
+                @hideToast="hideToast"
+    ></charger-toast>
   </div>
 </template>
 <script>
-import FooterNav from "./components/FooterNav";
+import FooterNav from "./components/FooterNav"
+import ChargerToast from './components/ChargerToast.vue'
+import Loading from './components/Loading.vue'
+import {mapState} from 'vuex'
 export default {
   name: "app",
   components: {
-    FooterNav
+    FooterNav,
+    ChargerToast,
+    Loading
+  },
+  computed:{
+    ...mapState('stateBox',{
+      toast: state=>state.toast,
+      loading: state => state.loading,
+    })
+  },
+  methods:{
+    hideToast(val){
+        this.$store.commit('stateBox/popUpToast',{
+          text: 'disappear',
+          display: false
+        });
+    }
   }
 }
 </script>

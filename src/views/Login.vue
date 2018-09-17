@@ -7,19 +7,21 @@
                     div.login__form-item
                         label(class="icon-login-phone login__form-icon")
                         input(
-                            type="text"
+                            type="number"
                             class="login__form-input login__form-input-1"
                             placeholder="请输入电话号码"
+                            v-model="phone"
                         )
                     div.login__form-item
                         label(class="icon-login-password e login__form-icon")
                         input(
-                            type="text"
+                            type="password"
                             class="login__form-input login__form-input-2"
                             placeholder="请输入密码"
+                            v-model="password"
                         )    
                 div.login__btn-confirm
-                    button(@click="logIn" class="btn btn-primary") 登录
+                    button(@click="logIn" class="btn btn-primary" v-bind:disabled="enabled") 登录
                 div.login__btn-register
                     button(@click="register" class="btn btn-primary") 注册
                 p(class="login__passwd" @click="lost") 忘记密码?
@@ -32,9 +34,26 @@
 <script>
 export default {
     name: "Login",
+    data(){
+        return{
+            phone: '',
+            password: '',
+        }
+    },
+    computed:{
+        enabled(){
+            return !this.phone || !this.password
+        }
+    },
     methods:{
         logIn(){
-            
+            if (!this.phone || !this.password) {
+                return;
+            }
+            this.$store.dispatch('user/login',{
+                phone: this.phone,
+                password: this.password
+            })
         },
         register(){
             this.$router.push({path: '/register'})
@@ -85,15 +104,15 @@ export default {
         &__btn-confirm,
         &__btn-register
             width 85%
+            height 2rem
             margin 0 auto
             boder none
-            &
-                margin-top 1rem
+            margin-top 1rem
         &__passwd
             font-size .8rem
             color #ffffff
-            text-align right
-            margin 1rem 1.7rem 
+            text-align center
+            margin 1.5rem 0 0 0 
             opacity  .6
             &:hover
                 opacity 1

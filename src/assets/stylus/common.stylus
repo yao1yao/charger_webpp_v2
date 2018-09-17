@@ -10,8 +10,8 @@ html
   color #888
 // use taobao stylesheet initial
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
-    body, button, input, select, textarea
-      font:12px/1.5tahoma arial \5b8b\4f53
+body, button, input, select, textarea
+  font:12px/1.5tahoma arial \5b8b\4f53
 h1, h2, h3, h4, h5, h6
   font-size 100%
 address, cite, dfn, em, var 
@@ -24,8 +24,6 @@ ul, ol
     list-style none
 a 
   text-decoration none
-a:hover
-  text-decoration underline 
 sup
   vertical-align text-top
 sub
@@ -53,8 +51,10 @@ body
   min-height 500px
 
 button
-    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     text-decoration none
+  
+
 
 user-select()
   -webkit-user-select arguments
@@ -64,7 +64,6 @@ user-select()
 
 .btn
   display inline-block
-  margin-bottom 0
   text-align center
   vertical-align middle
   cursor pointer
@@ -77,18 +76,12 @@ user-select()
     font-size 1rem
     border-radius 3rem
     background-color #5DC4FF
-    border-color none
     color white
-    &:active:enabled
-      border 2px solid white
-      border-radius 3rem
+    border 1px solid white
+    &:active
+      box-shadow .05em .1em .2em rgba(0,0,0,.6) inset;
     &:disabled
-      opacity 0.5
-      color #656161
-
-.active
-  background-color rgba(128, 128, 128, 0.28);
-  color #656161;
+      border none
 
 
 .bg
@@ -108,7 +101,6 @@ vendor(prop, args)
     -webkit-{prop} args
     -moz-{prop} args
     {prop} args
-
 
 
 widthHeightLineHeightFontSize($width,$height,$lineHegiht,$fontSize)

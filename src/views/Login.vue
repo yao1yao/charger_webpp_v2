@@ -34,7 +34,7 @@ export default {
     name: "Login",
     methods:{
         logIn(){
-
+            
         },
         register(){
             this.$router.push({path: '/register'})

@@ -5,7 +5,6 @@ import isWX from './isWX.js'
 
 export function wxPay(payParam){
     return new Promise((resolve,reject)=>{
-        console.log(payParam);
         wx.chooseWXPay({
             nonceStr: payParam.nonceStr, //支付签名随机字符串， 不长于 32 位
             package: payParam.package, //同一支付接口返回的 prepay_id 参数值，提交格式如: prepay_id=\*\*\*

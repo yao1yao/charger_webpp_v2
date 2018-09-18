@@ -4,6 +4,7 @@ import {STATUS_EVENT} from './../mutation-types'
 import {login} from '../../api/login'
 import {getVerfCode} from '../../api/getVerfCode'
 import {register} from '../../api/register'
+import {forgetPwd} from '../../api/fogetpwd'
 export const USER_STATUS = {
     CHARGING: 'charging',
     LOGIN : 'login',
@@ -49,6 +50,20 @@ const actions={
     },
     register({commit},data){
         register(data).then(res=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: res.message,
+                display: true
+            },{root:true})
+            router.replace({path:'/login'})
+        }).catch(error=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg,
+                display: true
+            },{root:true})
+        })
+    },
+    forgetPwd({commit},data){
+        forgetPwd(data).then(res=>{
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: res.message,
                 display: true

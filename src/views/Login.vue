@@ -113,7 +113,7 @@ export default {
             color #ffffff
             text-align center
             margin 1.5rem 0 0 0 
-            opacity  .6
+            opacity  .8
             &:hover
                 opacity 1
         &__select

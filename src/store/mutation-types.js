@@ -3,4 +3,5 @@ export const STATUS_EVENT = {
     SENDREQUEST: 'sendRequest',
     POP_UP_MODAL: 'popUpModal',
     POP_UP_TOAST: 'popUpToast',
+
 }

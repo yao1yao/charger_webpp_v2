@@ -2,6 +2,8 @@ import {localStore} from '../../utils/localStore'
 import router from  '../../router'
 import {STATUS_EVENT} from './../mutation-types'
 import {login} from '../../api/login'
+import {getVerfCode} from '../../api/getVerfCode'
+import {register} from '../../api/register'
 export const USER_STATUS = {
     CHARGING: 'charging',
     LOGIN : 'login',
@@ -24,7 +26,6 @@ const actions={
         login(data).then(res=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit(STATUS_EVENT.LOGIN, res)
-
         }).catch(error=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
@@ -33,6 +34,33 @@ const actions={
             },{root:true})
         })
     },
+    verfCode({commit},data){
+        getVerfCode(data).then(res=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: res.message,
+                display: true
+            },{root:true})
+        }).catch(error=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg,
+                display: true
+            },{root:true})
+        })
+    },
+    register({commit},data){
+        register(data).then(res=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: res.message,
+                display: true
+            },{root:true})
+            router.replace({path:'/login'})
+        }).catch(error=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg,
+                display: true
+            },{root:true})
+        })
+    }
 }
 
 const mutations = {

@@ -1,30 +1,110 @@
 <template lang="pug">
-    mixin registerItem(flag,type,name,message)
+    mixin registerItem(flag,type,name,message,data,length)
         div.register__item
             div.register__item-hd
                 if flag
                     label.register__item-label=name
                 else
-                    button(class="btn btn-primary register__item-validate")=name
+                    button(class="btn btn-primary register__item-validate" v-bind:disabled="btn.valdisabled" @click="_getVerCode")=name
             div.register__item-bd
                 input(
                     type=type
                     class="register__item-input"
                     placeholder=message
+                    v-model=data
+                    maxlength=length
                 )
     div.bg
         div.register
-            +registerItem(true,"text","姓名","请输入姓名")
-            +registerItem(true,"text","手机号","请输入手机号")
-            +registerItem(true,"password","密码","请输入密码")
-            +registerItem(true,"password","验证密码","请重复输入密码")
-            +registerItem(false,"text","验证码","请输入验证码")
+            +registerItem(true,"text","用户名","请输入用户名","registerData.name",40)
+            +registerItem(true,"text","手机号","请输入手机号","registerData.phone",11)
+            +registerItem(true,"password","密码","请输入密码","registerData.password",20)
+            +registerItem(true,"password","验证密码","请重复输入密码","registerData.confirmPassword",20)
+            +registerItem(false,"text","{{btn.validate}}","请输入验证码","registerData.code",6)
             div.register__btn
-                button(class="btn btn-primary") 提交
+                button(class="btn btn-primary" @click="_register" v-bind:disabled="enabled") 提交
 </template>
 <script>
+import {CheckRegex} from '../utils/checkRegex.js'
 export default {
-    name:"Register"
+    name:"Register",
+    data(){
+        return{
+            registerData:{
+                name:'',
+                phone:null,
+                password:'',
+                confirmPassword:'',
+                code: null
+            },
+            count: 60,
+            btn:{
+                validate: '验证码',
+                valdisabled: false,
+            }
+        }
+    },
+    computed:{
+        enabled(){
+             return !this.registerData.name||!this.registerData.phone||!this.registerData.password||!this.registerData.confirmPassword||!this.registerData.code
+        }
+    },
+    methods:{
+        _register(){
+            if (!CheckRegex(/^1[34578]\d{9}$/, this.registerData.phone)) {
+                this.$store.commit('stateBox/popUpToast', {
+                    text: '请输入正确的11位电话号码',
+                    display: true,
+                    })
+                    return
+            }
+            if (!this.registerData.code) {
+                this.$store.commit('stateBox/popUpToast', {
+                    text: '请输入验证码',
+                    display: true,
+            })
+                return
+            }
+            if (this.registerData.password !== this.registerData.confirmPassword) {
+                this.$store.commit('stateBox/popUpToast', {
+                    text: '两次密码不一致，请重新输入',
+                    display: true,
+            })
+                return
+            } 
+            this.$store.dispatch('user/register',{
+                phone: this.registerData.phone,
+                password: this.registerData.password,
+                userName: this.registerData.name,
+                verfCode: this.registerData.code,
+                openId: "omPtpwg8ezeS_cVGGROfIzSQUZdw"
+            })
+        },
+        _getVerCode(){
+           if (!CheckRegex(/^1[345789]\d{9}$/, this.registerData.phone)) {
+                this.$store.commit('stateBox/popUpToast', {
+                    text: '请输入正确的11位电话号码',
+                    display: true,
+                })
+            return;
+            }
+           let si = setInterval(()=>{
+               this.btn.validate=`${this.count} s`
+               if(this.count>0){
+                   this.btn.valdisabled = true;
+                   this.count-=1
+               }else{
+                   this.btn.validate = "验证码"
+                   this.btn.valdisabled = false;
+                   this.count = 60
+                   clearInterval(si)
+               }
+           },1000) 
+           this.$store.dispatch('user/verfCode',{
+               phone: this.registerData.phone
+           }) 
+        }
+    }
 }
 </script>
 <style lang="stylus">

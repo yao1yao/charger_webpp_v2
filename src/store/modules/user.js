@@ -16,10 +16,10 @@ export const USER_STATUS = {
  * @property {object} state.userInfo - 存储用户基本信息
  * 
  */
-const state = typeof(localStore.get('state').user)==='undefined'?{
+const state = localStore.get('state').user || {
     userInfo:{},
     userStatus: USER_STATUS.INVALID
-}:localStore.get('state').user
+}
 
 const actions={
     login({commit},data){

@@ -39,5 +39,6 @@ export default new Router({
     {path: '/recharge',component: Recharge},
     {path: '/monthly-fee',component: MonthlyFee},
     {path: '/error',component: ViewError},
+    {path: '*',component: Login},
   ]
 })

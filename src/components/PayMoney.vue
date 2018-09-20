@@ -49,8 +49,8 @@ export default {
             money: {
               value: 0,
               type: '元',
-              stepValue: 5,
-              maxValue: 50,
+              stepValue: 10,
+              maxValue: 100,
             },
             hour: {
               value: 0,

@@ -16,7 +16,7 @@ export const USER_STATUS = {
  * @property {object} state.userInfo - 存储用户基本信息
  * 
  */
-const state = localStore.get('state') || {
+const state = localStore.get('state').user || {
     userInfo:{},
     userStatus: USER_STATUS.INVALID
 }
@@ -30,7 +30,7 @@ const actions={
         }).catch(error=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                text: error.errMsg,
+                text: error.errMsg||"登录失败,请稍后再试",
                 display: true
             },{root:true})
         })

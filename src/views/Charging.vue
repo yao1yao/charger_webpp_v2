@@ -13,21 +13,39 @@
             +chargingItem('icon-charging-bluetooth','远距离操控')
             p.charging__logo
                 span.charging__logo-content
-            p.charging__scan 扫描充电
+            p.charging__scan 扫码充电
             div.charging__btn
-                button(@click="inputChargingNumber" class="btn btn-primary") 输入编号
+                button(@click="inputChargingNumber" class="btn btn-primary" v-bind:disabled="Userstatus") 输入编号
             div.charging__btn
-                button(@click="getChargerStatus" class="btn btn-primary") 充电状态
+                button(@click="getChargerStatus" class="btn btn-primary"  v-bind:disabled="!Userstatus") 充电状态
 </template>
 <script>
+import {mapState} from 'vuex'
+import { USER_STATUS} from './../store/modules/user'
+
 export default {
-    name: 'charging',
+     name: 'charging',
+     data(){
+         return {
+             isLogin: true
+         }
+     },
+     computed:{
+         ...mapState('user',['userStatus']),
+         Userstatus(){
+             return this.userStatus!==USER_STATUS.LOGIN
+         }
+     },
      methods:{
       inputChargingNumber(){
-        this.$router.push({path: '/charger/input-identify'})
+        if(this.userStatus===USER_STATUS.LOGIN){  
+            this.$router.push({path: '/charger/input-identify'})
+        }
       },
       getChargerStatus(){
-        this.$router.push({path: '/charger/status'})
+        if(this.userStatus===USER_STATUS.CHARGING){  
+            this.$router.push({path: '/charger/status'})
+        }
       }
     }
 }

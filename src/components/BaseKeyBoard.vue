@@ -15,7 +15,7 @@
                    +liItem("btn btn_input",7)
                    +liItem("btn btn_input",8)
                    +liItem("btn btn_input",9)
-                   +liItem("btn btn_input",'#')
+                   +liItem("btn btn_input",'')
                    +liItem("btn btn_input",0)
                    +liItem("btn col_reset",'')
                                                        

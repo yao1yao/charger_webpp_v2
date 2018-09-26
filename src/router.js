@@ -24,7 +24,7 @@ export default new Router({
   routes: [
     {path: '/charger', component: Charging},
     {path: '/user', component: User},
-    {path: '/charger/input-identify', component: InputIdentify},
+    {path: '/charger-start', component: InputIdentify},
     {path: '/charger/status', component: ChargingStatus},
     {path: '/charger/record', component: ChargerRecord},
     {path: '/charger/detail', component: ChargerDetail},
@@ -39,6 +39,5 @@ export default new Router({
     {path: '/recharge',component: Recharge},
     {path: '/monthly-fee',component: MonthlyFee},
     {path: '/error',component: ViewError},
-    {path: '*',component: Login},
   ]
 })

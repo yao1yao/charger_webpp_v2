@@ -3,19 +3,19 @@ div.bg
     div.input-identify
         div(v-on:click="display = false")
             input-charger-number(:filterBy="filterBy" :display.sync="display" :arr="arr")
-            charger-info(class="input-identify__charger-info" v-bind="chargerInfo")
+            charger-message(class="input-identify__charger-info" v-bind="chargerInfo")
             pay-money(v-bind:current.sync="current" v-bind:value.sync="value")
         div.input-identify__pay
             div.input-identify__pay_item
                 p.input-identify__pay_text 支付金额
-                p.input-identify__pay_number {{payMoney|formatMoney}}
+                p.input-identify__pay_number {{payForMoney|formatMoney}}
             div.input-identify__pay_item
                 p.input-identify__pay_text 账户余额
                 p.input-identify__pay_number {{balance|formatMoney}}
         div.input-identify__btn
-                button(@click="payBalance" class="btn btn-primary") 余额支付
+                button(@click="payBalance" class="btn btn-primary" v-bind:disabled="enabled") 余额支付
         div.input-identify__btn         
-                button(@click="payWechat" class="btn btn-primary") 微信支付
+                button(@click="payWechat" class="btn btn-primary"  v-bind:disabled="enabled") 微信支付
 </template>
 
 <script>
@@ -23,13 +23,15 @@ import {mapState} from 'vuex'
 import {formatMoney} from '../filters/formatMoney.js'
 import InputChargerNumber from '../components/InputChargerNumber'
 import PayMoney from '../components/PayMoney'
-import ChargerInfo from '../components/ChargerInfo'
+import ChargerMessage from '../components/ChargerMessage'
+import {CHARGING_TYPE,PAY_TYPE} from '../utils/constants.js'
+import {pay} from './../api/pay'
 export default {
     name:"InputIdentify",
     components:{
         InputChargerNumber,
         PayMoney,
-        ChargerInfo
+        ChargerMessage
     },
     created(){
 
@@ -38,15 +40,24 @@ export default {
       formatMoney
     },
     computed:{
-        payMoney(){
-            return 100;
-        },
         ...mapState('user',{
-            balance: state=>state.userInfo.balance
+            balance: state=>state.userInfo.balance,
+            userId: state=>state.userInfo.userId,
+            openId: state=>state.userInfo.openId,
         }),
         ...mapState('charger',{
             chargerInfo: state=>state.chargerInfo
-        })
+        }),
+        payForMoney(){
+            if(this.current=== CHARGING_TYPE.MONEY){
+                return this.value;
+            }else if(this.current === CHARGING_TYPE.TIME){
+                return (this.value/60)*this.chargerInfo.devicePower*(this.chargerInfo.serviceRate+this.chargerInfo.energyRate)
+            }
+        },
+        enabled(){
+            return !this.value
+        }
     },
     watch:{
         display:{
@@ -57,6 +68,12 @@ export default {
                 this.$store.dispatch('charger/updateChargerInfo',self.arr.join(''));
                }
             }
+        },
+        current:{
+            handler:function(val){
+                // 每次切换方式时，都需要先置零
+                this.value = 0
+            }
         }
     },
     data(){
@@ -65,19 +82,46 @@ export default {
             filterBy: 0,
             display: false,
             current:0,
-            value: 0,
+            value: 0
         }
     },
     methods:{
         payBalance(){
-            console.log(this.arr)
-            console.log(this.current)
-            console.log(this.value)
-            console.log(this.filterBy)
-            //this.$router.push({path:'/charger/status'})
+            if(!this.value){
+                return;
+            }
+             this.$store.dispatch('charger/startCharging',{
+                openId: this.openId,
+                type: this.current,
+                userId: this.userId,
+                chargerNumber: parseInt(this.arr.join('')),
+                value: this.value,
+                payType:PAY_TYPE.BALANCE
+
+            })
         },
         payWechat(){
-
+            let openId = this.openId
+            let userId = this.userId
+            let rechargeMoney=this.payForMoney.toFixed(2)*100
+            pay({
+                openId,
+                rechargeMoney,
+                userId
+            }).then(function(res){
+                alert(12312321312)
+                // if(res==='success'){
+                //     this.$store.dispatch('charger/startCharging',{
+                //     openId: openId,
+                //     type: this.current,
+                //     userId: userId,
+                //     chargerNumber: parseInt(this.arr.join('')),
+                //     value: this.value,
+                //     payType:PAY_TYPE.WECHAT
+                //     })
+                // }
+                // 更新当前总余额
+            })
         }
     }
 }

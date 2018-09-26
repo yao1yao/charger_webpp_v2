@@ -32,10 +32,10 @@ export default {
         return{
             registerData:{
                 name:'',
-                phone:null,
+                phone:'',
                 password:'',
                 confirmPassword:'',
-                code: null
+                code: ''
             },
             count: 60,
             btn:{

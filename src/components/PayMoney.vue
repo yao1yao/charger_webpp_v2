@@ -1,7 +1,7 @@
 <template lang="pug">
     div.pay-money
        div.pay-money__select
-          select(class="pay-money__select-bd" @change="updateSelect($event.target.value)")
+          select(class="pay-money__select-bd" @change.stop="updateSelect($event.target.value)")
              option(v-for="option in availableOptions" v-bind:value="option.id") {{option.name}}
        div(class="pay-money__set" v-show="current===0")
           div.pay-money__set-hd 设置充电金额

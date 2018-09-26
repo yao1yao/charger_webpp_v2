@@ -41,7 +41,7 @@ export default {
             let self = this
             let rechargeMoney= self.rechargerMoney
             let openId = "omPtpwg8ezeS_cVGGROfIzSQUZdw"
-            let userId = 71
+            let userId = 48
             pay({
                 openId,
                 rechargeMoney,

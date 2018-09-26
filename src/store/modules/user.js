@@ -27,6 +27,8 @@ const actions={
         login(data).then(res=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit(STATUS_EVENT.LOGIN, res)
+            commit(STATUS_EVENT.CHANGE_USER_STATUS, USER_STATUS.LOGIN)
+            router.replace({path: '/home'})
         }).catch(error=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
@@ -80,9 +82,10 @@ const actions={
 
 const mutations = {
     [STATUS_EVENT.LOGIN](state, userInfo){
-        state.userStatus = USER_STATUS.LOGIN
         state.userInfo = userInfo
-        router.replace({path: '/home'})
+    },
+    [STATUS_EVENT.CHANGE_USER_STATUS](state,status){
+        state.userStatus = status
     }
 }
 

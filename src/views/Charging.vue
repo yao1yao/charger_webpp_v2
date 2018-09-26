@@ -39,7 +39,7 @@ export default {
      methods:{
       inputChargingNumber(){
         if(this.userStatus===USER_STATUS.LOGIN){  
-            this.$router.push({path: '/charger/input-identify'})
+            this.$router.push({path: '/charger-start'})
         }
       },
       getChargerStatus(){

@@ -103,24 +103,22 @@ export default {
         payWechat(){
             let openId = this.openId
             let userId = this.userId
-            let rechargeMoney=this.payForMoney.toFixed(2)*100
+            let rechargeMoney=1
             pay({
                 openId,
                 rechargeMoney,
                 userId
             }).then(function(res){
-                alert(12312321312)
-                // if(res==='success'){
-                //     this.$store.dispatch('charger/startCharging',{
-                //     openId: openId,
-                //     type: this.current,
-                //     userId: userId,
-                //     chargerNumber: parseInt(this.arr.join('')),
-                //     value: this.value,
-                //     payType:PAY_TYPE.WECHAT
-                //     })
-                // }
-                // 更新当前总余额
+                if(res==='success'){
+                    this.$store.dispatch('charger/startCharging',{
+                    openId: openId,
+                    type: this.current,
+                    userId: userId,
+                    chargerNumber: parseInt(this.arr.join('')),
+                    value: this.value,
+                    payType:PAY_TYPE.WECHAT
+                    })
+                }
             })
         }
     }

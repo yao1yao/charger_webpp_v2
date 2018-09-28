@@ -3,7 +3,7 @@
     <div class="content">
     <router-view/>
     </div>
-    <footer-nav></footer-nav>
+        <footer-nav></footer-nav>
      <loading v-show="loading"></loading>
     <charger-toast
                 v-bind="toast"

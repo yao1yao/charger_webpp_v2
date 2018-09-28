@@ -2,6 +2,7 @@
     div.charger-err
         div.charger-err__logo  !
         div.charger-err__text {{errMsg}}
+        div.mask
 </template>
 
 <script>

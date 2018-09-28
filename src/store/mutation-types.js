@@ -12,5 +12,7 @@ export const STATUS_EVENT = {
     // charger event
     GET_CHARGER_INFO: 'getChargerInfo',
     UPDATE_CHARGER_INFO:'updateChargerInfo',  // 更新当前选择的充电桩的信息，包括功率，服务费，电费
-    START_CHARGING: 'startCharging'           // 开始充电  
+    UPDATE_CHARGING_INFO:'updateChargingInfo', // 更新当前充电的信息，包括电压，电流，充电度数等
+    START_CHARGING: 'startCharging',           // 开始充电  
+    CACLUATE_ERROR_TIMES:'cacluateErrorTimes'  // 计算获取充电次数失败的次数
 }

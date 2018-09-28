@@ -7,26 +7,59 @@
         div.charging-status__sum
             div.charging-status__sum-item
                 p.charging-status__sum-title 设定时长/分钟
-                p.charging-status__sum-value 30
+                p.charging-status__sum-value {{chargingInfo.setDuration}}
             div.charging-status__sum-item
                 p.charging-status__sum-title 已充电量/度
-                p.charging-status__sum-value 20
-        div.charging-status__number 设备编号: 1
+                p.charging-status__sum-value {{chargingInfo.energy}}
+        div.charging-status__number 设备编号: {{chargingInfo.chargerNumber}}
         div.charging-status__info
-            +chargerStatusInfoItem("充电时长","05 min")
-            +chargerStatusInfoItem("充电电压","10 V")
-            +chargerStatusInfoItem("充电电流","10 A")
-            +chargerStatusInfoItem("充电功率","10 W")
+            +chargerStatusInfoItem("充电时长","{{chargingInfo.duration}} min")
+            +chargerStatusInfoItem("充电电压","{{chargingInfo.voltage}} V")
+            +chargerStatusInfoItem("充电电流","{{chargingInfo.current}} A")
+            +chargerStatusInfoItem("充电功率","{{chargingInfo.power}} W")
         div.charging-status__btn
             button( @click="setEndCharging" class="btn btn-primary") 充电完毕
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     name: "ChargerStatus",
+    data(){
+        return{
+            Errnumber:0,
+            timer: '',
+            flag: false,
+        }
+    },
+    computed:{
+        ...mapState('user',{
+            userInfo: state=>state.userInfo
+        }),
+        ...mapState('charger',{
+            chargingInfo: state=>state.chargingInfo
+        })
+    },
+    created(){
+        this.fetchData();
+        this.timer = setInterval(this.fetchData,5000)
+    },
+    beforeRouteLeave(to, from,next){
+        clearInterval(this.timer)
+        next()
+    },
+    destroyed(){
+        clearInterval(this.timer)
+    },
     methods:{
         setEndCharging(){
-        this.$router.push({path: '/charger/record'})
+            this.$router.push({path: '/charger/record'})
+        },
+        fetchData(){
+            this.$store.dispatch('charger/updateChargingInfo',{
+                 chargerNumber: this.chargingInfo.chargerNumber,
+                 userId: this.userInfo.userId
+            })
         }
     }
 }

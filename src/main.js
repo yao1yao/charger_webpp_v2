@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import wxInit from './utils/wxJSSDK'
 import {ERR_TYPE} from "./utils/chargerError";
+
 Vue.config.productionTip = false
 
 new Vue({

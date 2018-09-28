@@ -33,9 +33,6 @@ export default {
         PayMoney,
         ChargerMessage
     },
-    created(){
-
-    },
     filters: {
       formatMoney
     },
@@ -83,6 +80,15 @@ export default {
             display: false,
             current:0,
             value: 0
+        }
+    },
+    created(){
+        if(this.$route.query.chargerNumber){
+            let chargerNumber = this.$route.query.chargerNumber.toString()
+            for(let i=0;i<this.arr.length;i++){
+                this.arr[i]=chargerNumber[i]
+            }
+            this.$store.dispatch('charger/updateChargerInfo',this.arr.join(''));
         }
     },
     methods:{

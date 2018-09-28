@@ -128,3 +128,11 @@ wordJustify()
   text-align-last justify;/* ie9*/
   -moz-text-align-last justify;/*ff*/
   -webkit-text-align-last justify;/*chrome 20+*/
+
+.mask
+    position fixed
+    bottom 0
+    z-index 999
+    width 100%
+    height 3.2rem
+    background-color white

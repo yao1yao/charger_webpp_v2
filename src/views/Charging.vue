@@ -11,9 +11,9 @@
             +chargingItem('icon-user-recharge','付费启动充电')
             +chargingItem('icon-charger-status-idle','实时查看充电进度')
             +chargingItem('icon-charging-bluetooth','远距离操控')
-            p.charging__logo
+            p(class="charging__logo" @click="scan")
                 span.charging__logo-content
-            p.charging__scan 扫码充电
+            p(class="charging__scan") 扫码充电
             div.charging__btn
                 button(@click="inputChargingNumber" class="btn btn-primary" v-bind:disabled="Userstatus") 输入编号
             div.charging__btn
@@ -22,6 +22,7 @@
 <script>
 import {mapState} from 'vuex'
 import { USER_STATUS} from './../store/modules/user'
+import wx from 'weixin-js-sdk'
 
 export default {
      name: 'charging',
@@ -46,6 +47,30 @@ export default {
         if(this.userStatus===USER_STATUS.CHARGING){  
             this.$router.push({path: '/charger/status'})
         }
+      },
+      scan(){
+          var that = this;
+          wx.scanQRCode({
+              needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果
+              scanType: ["qrCode"],
+              success : function(res) {
+                  let result = res.resultStr
+                  let query=that.splitByqMark(result)
+                  let chargerNumber =  that.getQueryString(query[1],'chargerNumber')
+                  that.$router.push({path: '/charger-start', query:{chargerNumber:chargerNumber}})
+              }
+          })
+      },
+      splitByqMark(str){
+        if(str.indexOf('?')===-1){
+           return  'str is not url or not carry parameter'
+        }
+        return str.split('?')
+      },
+      getQueryString(str,name){     
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");       
+        var r = str.match(reg);        
+        if (r!=null) return r[2]; return '';    
       }
     }
 }

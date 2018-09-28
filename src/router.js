@@ -17,6 +17,7 @@ import Account from './views/Account'
 import Recharge from './views/Recharge'
 import MonthlyFee from './views/MonthlyFee'
 import ViewError from './views/Error.vue'
+import Focus from './views/Focus.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -39,5 +40,6 @@ export default new Router({
     {path: '/recharge',component: Recharge},
     {path: '/monthly-fee',component: MonthlyFee},
     {path: '/error',component: ViewError},
+    {path: '/focus',component: Focus},
   ]
 })

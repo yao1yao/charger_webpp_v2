@@ -2,36 +2,41 @@
     div.recharge-record
         div.recharge-record__sum
             div.recharge-record__item
-                p.recharge-record__sum-title 总充值/元
-                p.recharge-record__sum-content 100 
+                p.recharge-record__sum-title 总充值
+                p.recharge-record__sum-content {{reChargerRecord.sumRechargeMoney | formatMoney}} 
             div.recharge-record__item
-                p.recharge-record__sum-title 余额/元
-                p.recharge-record__sum-content 10 
+                p.recharge-record__sum-title 余额
+                p.recharge-record__sum-content {{userInfo.balance | formatMoney}} 
         table.recharge-record__list
             caption.recharge-record__list-title 最近一个月充值记录
             tbody.recharge-record__list-content
-                tr.recharge-record__list-subitem
-                    td 充值 30 元
+                tr.recharge-record__list-subitem(v-for="(item,index) in reChargerRecord.reChargerRecord")
+                    td 充值 {{item.recharge_money | formatMoney}}
                     td 微信支付
-                    td 2018-10-12 06:29:59
-                tr.recharge-record__list-subitem
-                    td 充值 30 元
-                    td 微信支付
-                    td 2018-10-12 06:29:59
-                tr.recharge-record__list-subitem
-                    td 充值 30 元
-                    td 微信支付
-                    td 2018-10-12 06:29:59
-                tr.recharge-record__list-subitem
-                    td 充值 30 元
-                    td 微信支付
-                    td 2018-10-12 06:29:59
+                    td {{item.recharge_time}}
 </template>
 
 <script>
 import {mapState}  from 'vuex'
+import {formatMoney}  from '../filters/formatMoney.js'
 export default {
     name: "RechargerRecord",
+    computed:{
+        ...mapState('user',{
+            userInfo: state=>state.userInfo
+        }),
+        ...mapState('record',{
+            reChargerRecord: state=>state.reChargerRecord
+        })
+    },
+    filters:{
+        formatMoney
+    },
+    mounted(){
+        this.$store.dispatch('record/getRechargeReocrd',{
+            userId: this.userInfo.userId
+        })
+    }
 }
 
 </script>
@@ -44,7 +49,7 @@ export default {
             &-title
                 font-size 1rem
             &-content
-                font-size 2.5rem 
+                font-size 2rem 
                 letter-spacing .2rem
         &__item
             flex 1

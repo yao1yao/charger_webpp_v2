@@ -1,26 +1,44 @@
 <template lang="pug">
     div.charger-detail
         div.charger-detail__hd
-            p.charger-detail__hd_item 深圳市南山区西丽凯达尔大厦 B 座 13 层
+            p.charger-detail__hd_item {{recordDetail.address}}
             p.charger-detail__hd_item 
-                span 设备号: 1 <br> 
-                span 耗电量: 27.4 W
+                span 设备号: {{recordDetail.charger_number}} <br> 
+                span 耗电量: {{recordDetail.energy}} 度
             p.charger-detail__hd_item 
-                span(style="float:right") 总电费: 0 <br> 
-                span 总服务费: 0
+                span(style="float:right") 电费: {{(recordDetail.energy_money)|formatMoney}}   <br> 
+                span 服务费: {{(recordDetail.service_money)|formatMoney}} 
         div.charger-detail__bd
             p 开始时间
-                span 2018-08-27 18:29:17
+                span {{(recordDetail.start_time)}}
             p 结束时间
-                span 2018-08-27 18:39:17
+                span {{(recordDetail.end_time)}}
             p 充电时长
-                span 10 分钟
+                span {{recordDetail.duration}} 分钟
 
 </template>
 
 <script>
+import {formatMoney}  from '../filters/formatMoney.js'
 export default {
-    name: "ChargerDetail"
+    name: "ChargerDetail",
+    filters: {
+      formatMoney
+    },
+    data(){
+        return {
+            recordDetail:{
+            }
+        }
+    },
+    created(){
+        this.init();
+    },
+    methods:{
+        init(){
+            this.recordDetail=JSON.parse(this.$route.query.recodeDetail);
+        }
+    }
 }
 </script>
 

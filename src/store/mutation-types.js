@@ -16,5 +16,9 @@ export const STATUS_EVENT = {
     UPDATE_CHARGING_INFO:'updateChargingInfo', // 更新当前充电的信息，包括电压，电流，充电度数等
     START_CHARGING: 'startCharging',           // 开始充电  
     CACLUATE_ERROR_TIMES:'cacluateErrorTimes',  // 计算获取充电次数失败的次数
-    END_CHARGING: 'endCharging'                // 结束充电
+    END_CHARGING: 'endCharging',                // 结束充电
+
+    // record event
+    GET_CHARGER_RECORD:'getChargerReocrd', // 获取充电记录
+    GET_RECHAGER_RECORD:'getRechargeReocrd', // 获取充电记录
 }

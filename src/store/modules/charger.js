@@ -3,6 +3,7 @@ import {updateChargerInfo} from '../../api/updateChargerInfo'
 import router from  '../../router'
 import {localStore} from '../../utils/localStore'
 import {startCharging} from '../../api/startCharging'
+import {endCharging} from '../../api/endCharging'
 import {getChargingInfo} from '../../api/getChargingInfo'
 import  {USER_STATUS} from './user'
 /**
@@ -33,11 +34,36 @@ const state = localStore.get('state').charger || {
 
 
 const actions={
+    [STATUS_EVENT.END_CHARGING]({commit},data){
+        endCharging(data).then(res=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: res.message,
+                display: true
+            },{root:true})
+            router.push({path: '/charger/record'})
+            commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.LOGIN,{root:true})
+        }).catch(error=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg||'服务器开小差了,稍后再试',
+                display: true
+            },{root:true})
+        })
+    },
     [STATUS_EVENT.UPDATE_CHARGING_INFO]({commit,state},data){
         getChargingInfo(data).then(res=>{
             // 如果是充电状态，更新充电信息
             if(res.isCharging){
                 commit(STATUS_EVENT.UPDATE_CHARGING_INFO,res)
+            }else{
+                commit(STATUS_EVENT.CACLUATE_ERROR_TIMES)
+                commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                    text: '设备异常，即将结束充电',
+                    display: true
+                },{root:true})
+                if(state.chargingInfo.errTimes>1){
+                    router.replace({path: '/charger'})
+                    commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.LOGIN,{root:true})
+                }
             }
         }).catch(error=>{
                 commit(STATUS_EVENT.CACLUATE_ERROR_TIMES)
@@ -94,6 +120,7 @@ const mutations={
         state.chargingInfo.voltage = chargingInfo.voltage
         state.chargingInfo.current = chargingInfo.current
         state.chargingInfo.power = chargingInfo.power
+        state.chargingInfo.duration = chargingInfo.duration
     },
     [STATUS_EVENT.CACLUATE_ERROR_TIMES](state){
         state.chargingInfo.errTimes++

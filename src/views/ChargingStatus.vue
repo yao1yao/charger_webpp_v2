@@ -6,8 +6,12 @@
     div.charging-status
         div.charging-status__sum
             div.charging-status__sum-item
-                p.charging-status__sum-title 设定时长/分钟
-                p.charging-status__sum-value {{chargingInfo.setDuration}}
+                div(v-if="chargingInfo.type===1")
+                    p.charging-status__sum-title 设定时长/分钟
+                    p.charging-status__sum-value {{chargingInfo.setDuration}}
+                div(v-if="chargingInfo.type===0")
+                    p.charging-status__sum-title 设定度数/度
+                    p.charging-status__sum-value {{chargingInfo.setEnergy}}
             div.charging-status__sum-item
                 p.charging-status__sum-title 已充电量/度
                 p.charging-status__sum-value {{chargingInfo.energy}}
@@ -27,9 +31,7 @@ export default {
     name: "ChargerStatus",
     data(){
         return{
-            Errnumber:0,
             timer: '',
-            flag: false,
         }
     },
     computed:{
@@ -53,7 +55,14 @@ export default {
     },
     methods:{
         setEndCharging(){
-            this.$router.push({path: '/charger/record'})
+            // this.$router.push({path: '/charger/record'})
+            this.$store.commit('stateBox/popUpModal',{
+                title: '温馨提示',
+                content: '结束充电?',
+                btnName: '确认',
+                type: 'endCharging',
+                display: true
+            })
         },
         fetchData(){
             this.$store.dispatch('charger/updateChargingInfo',{

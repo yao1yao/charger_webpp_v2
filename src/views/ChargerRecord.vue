@@ -3,34 +3,36 @@
         div.charger-record__sum
             div.charger-record__item
                 p.charger-record__sum-title 总充电时长/分钟
-                p.charger-record__sum-content 100 
+                p.charger-record__sum-content {{chargerRecord.sumDuration}}
             div.charger-record__item
                 p.charger-record__sum-title 总充电电量/度
-                p.charger-record__sum-content 10 
+                p.charger-record__sum-content {{chargerRecord.sumEnergy}}
         table.charger-record__list
             caption.charger-record__list-title 最近一个月充电记录
             tbody.charger-record__list-content
-                tr.charger-record__list-subitem(@click="$router.push({path: '/charger/detail'})")
-                    td 充电 10  度
-                    td 用时 10 分钟
-                    td 2018-10-12 06:29:59
-                tr.charger-record__list-subitem
-                    td 充电 10  度
-                    td 用时 10 分钟
-                    td 2018-10-12 06:29:59
-                tr.charger-record__list-subitem
-                    td 充电 10  度
-                    td 用时 10 分钟
-                    td 2018-10-12 06:29:59
-                tr.charger-record__list-subitem
-                    td 充电 10  度
-                    td 用时 5 分钟
-                    td 2018-10-12 06:29:59
+                tr.charger-record__list-subitem(@click="$router.push({path: '/charger/detail',query:{recodeDetail:JSON.stringify(item)}})" v-for="(item,index) in chargerRecord.allRecord")
+                    td 充电 {{item.energy}}  度
+                    td 用时 {{item.duration}} 分钟
+                    td {{item.end_time}}
 </template>
 
 <script>
+import {mapState}  from 'vuex'
 export default {
-    name: "ChargerRecord"
+    name: "ChargerRecord",
+    computed:{
+        ...mapState('user',{
+            userInfo: state=>state.userInfo
+        }),
+        ...mapState('record',{
+            chargerRecord: state=>state.chargerRecord
+        })
+    },
+    mounted(){
+        this.$store.dispatch('record/getChargerReocrd',{
+            userId: this.userInfo.userId
+        })
+    }
 }
 
 </script>

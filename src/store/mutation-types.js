@@ -2,7 +2,7 @@ export const STATUS_EVENT = {
     // user event
     LOGIN: 'login', // 登录 
     CHANGE_USER_STATUS: 'changeUserStatus',  // 切换用户状态
-
+    FEED_BACK: 'feedback',  // 用户反馈
     
     // stateBox event
     SENDREQUEST: 'sendRequest',   // 等待框

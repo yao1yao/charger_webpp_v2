@@ -5,6 +5,7 @@ import {login} from '../../api/login'
 import {getVerfCode} from '../../api/getVerfCode'
 import {register} from '../../api/register'
 import {forgetPwd} from '../../api/fogetpwd'
+import {feedback} from '../../api/feedback'
 export const USER_STATUS = {
     CHARGING: 'charging',
     LOGIN : 'login',
@@ -45,7 +46,7 @@ const actions={
             },{root:true})
         }).catch(error=>{
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                text: error.errMsg,
+                text: error.errMsg||'获取验证码失败,稍后再试',
                 display: true
             },{root:true})
         })
@@ -59,7 +60,7 @@ const actions={
             router.replace({path:'/login'})
         }).catch(error=>{
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                text: error.errMsg,
+                text: error.errMsg||'注册失败,稍后再试',
                 display: true
             },{root:true})
         })
@@ -73,7 +74,20 @@ const actions={
             router.replace({path:'/login'})
         }).catch(error=>{
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                text: error.errMsg,
+                text: error.errMsg||'服务器开小差了,稍后再试',
+                display: true
+            },{root:true})
+        })
+    },
+    feedback({commit},data){
+        feedback(data).then(res=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: res.message,
+                display: true
+            },{root:true})
+        }).catch(error=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg||'反馈失败了,稍后再试',
                 display: true
             },{root:true})
         })

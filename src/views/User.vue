@@ -17,11 +17,11 @@
                 p.menu__item_text=text_second
     div        
         div.user
-            +userItem("icon-user-info-name", "{{userName}}")
-            +userItem("icon-user-info-phone", "{{phoneNumber}}")
+            +userItem("icon-user-info-name", "{{userInfo.userName}}")
+            +userItem("icon-user-info-phone", "{{userInfo.phone}}")
         div.consume
-            +consumeItem("余额","888")
-            +consumeItem("消费","123")
+            +consumeItem("余额","{{userInfo.balance|formatMoney}}")
+            +consumeItem("消费","{{reChargerRecord.sumRechargeMoney|formatMoney}}")
         div.service 用户服务
         div.menu
             +menuItem("{path:'/account'}","{path:'/settings'}","icon-withdraw-cash","icon-user-account","账户管理","设置")
@@ -29,6 +29,8 @@
             +menuItem("{path:'/course'}","{path:'/feedback'}","icon-user-help","icon-user-advice","使用教程","意见反馈")
 </template>
 <script>
+import {mapState}  from 'vuex'
+import {formatMoney}  from '../filters/formatMoney.js'
 export default {
     name: 'User',
     data () {
@@ -36,6 +38,22 @@ export default {
             userName:"关关关",
             phoneNumber:"18819456729"
         }
+    },
+     filters:{
+        formatMoney
+    },
+    computed:{
+        ...mapState('user',{
+            userInfo: state=>state.userInfo
+        }),
+        ...mapState('record',{
+            reChargerRecord: state=>state.reChargerRecord
+        })
+    },
+    mounted(){
+        this.$store.dispatch('record/getRechargeReocrd',{
+            userId: this.userInfo.userId
+        })
     }
 }
 </script>

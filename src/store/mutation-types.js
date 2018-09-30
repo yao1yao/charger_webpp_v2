@@ -4,6 +4,7 @@ export const STATUS_EVENT = {
     CHANGE_USER_STATUS: 'changeUserStatus',  // 切换用户状态
     FEED_BACK: 'feedback',  // 用户反馈
     GET_NEWEST_BALANCE: 'getNewestBalance', // 更新用户余额
+    MODFIY_DATUM: 'modifyDatum',     // 修改资料
 
     // stateBox event
     SENDREQUEST: 'sendRequest',   // 等待框

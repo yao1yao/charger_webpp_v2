@@ -2,16 +2,18 @@
     div.settings
         <ul class="settings__list">
             <li>
-                <router-link :to="{path:'/'}" class="settings__item">修改资料
+                <router-link :to="{path:'/modify-datum'}" class="settings__item">修改资料
                 </router-link>
-                <router-link :to="{path:'/'}" class="settings__item">密码修改
+                //- <router-link :to="{path:'/modify-pwd'}" class="settings__item">密码修改
                 </router-link>
-                <!--<a href="javascript:;" class="setup__category__item">企业认证</a>-->
-                <!--<a href="javascript:;" class="setup__category__item">关于我们</a>-->
+                <router-link :to="{path:'/company-auth'}" class="settings__item">企业认证
+                </router-link>
+                <router-link :to="{path:'/about-us'}" class="settings__item">关于我们
+                </router-link>
             </li>
         </ul>
         div.settings__btn
-            button(@click="logOut" class="btn btn-primary") 退出登录
+            button(@click="logOut" class="btn btn-primary" v-bind:disabled="false") 退出登录
 </template>
 
 
@@ -20,7 +22,7 @@ export default {
     name: "Settings",
     methods:{
         logOut(){
-            this.$router.push({path: '/login'})
+            
         }
     }
 }
@@ -31,11 +33,12 @@ export default {
     @import "./../assets/stylus/common.stylus"
     .settings
         width 90%
-        margin 1rem auto 
+        margin 0 auto
+        padding 1rem auto 
         background-color #ffffff
         &__list
             list-style-type none 
-            margin-top 2rem
+            padding-top 2rem
         &__item
             width 80%
             margin 0 auto

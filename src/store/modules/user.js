@@ -7,6 +7,7 @@ import {register} from '../../api/register'
 import {forgetPwd} from '../../api/fogetpwd'
 import {feedback} from '../../api/feedback'
 import {getNewestBalance} from '../../api/getNewestBalance'
+import {modifyDatum} from '../../api/modifyDatum'
 export const USER_STATUS = {
     CHARGING: 'charging',
     LOGIN : 'login',
@@ -99,6 +100,21 @@ const actions={
         }).catch(error=>{
             console.log('获取最新余额失败');
         })
+    },
+    modifyDatum({commit},data){
+        modifyDatum(data).then(res=>{
+            commit(STATUS_EVENT.MODFIY_DATUM,res)
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: '修改成功',
+                display: true
+            },{root:true})
+            router.replace({path: '/user'})
+        }).catch(error=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg||'服务器开小差，稍后再试',
+                display: true
+            },{root:true})
+        })
     }
 }
 
@@ -111,6 +127,10 @@ const mutations = {
     },
     [STATUS_EVENT.GET_NEWEST_BALANCE](state,balance){
         state.userInfo.balance = balance
+    },
+    [STATUS_EVENT.MODFIY_DATUM](state,datum){
+        state.userInfo.userName = datum.userName
+        state.userInfo.phone = datum.phone
     }
 }
 

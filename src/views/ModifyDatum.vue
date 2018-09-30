@@ -1,56 +1,57 @@
 <template lang="pug">
-    mixin registerItem(flag,type,name,message,data,length)
-        div.register__item
-            div.register__item-hd
+    mixin DatumItem(flag,type,name,message,data,length)
+        div.Datum__item
+            div.Datum__item-hd
                 if flag
-                    label.register__item-label=name
+                    label.Datum__item-label=name
                 else
-                    button(class="btn btn-primary register__item-validate" v-bind:disabled="btn.valdisabled" @click="_getVerCode")=name
-            div.register__item-bd
+                    button(class="btn btn-primary Datum__item-validate" v-bind:disabled="btn.valdisabled" @click="_getVerCode")=name
+            div.Datum__item-bd
                 input(
                     type=type
-                    class="register__item-input"
+                    class="Datum__item-input"
                     placeholder=message
                     v-model=data
                     maxlength=length
                 )
     div.bg
-        div.register
-            +registerItem(true,"text","用户名","请输入用户名","registerData.name",40)
-            +registerItem(true,"text","手机号","请输入手机号","registerData.phone",11)
-            +registerItem(true,"password","密码","请输入密码","registerData.password",20)
-            +registerItem(true,"password","验证密码","请重复输入密码","registerData.confirmPassword",20)
-            +registerItem(false,"text","{{btn.validate}}","请输入验证码","registerData.code",6)
-            div.register__btn
-                button(class="btn btn-primary" @click="_register" v-bind:disabled="enabled") 提交
+        div.Datum
+            +DatumItem(true,"text","用户名","请输入新的用户名","DatumData.name",40)
+            +DatumItem(true,"text","手机号","请输入当前或新的手机号","DatumData.phone",11)
+            +DatumItem(false,"text","{{btn.validate}}","请输入验证码","DatumData.code",6)
+            div.Datum__btn
+                button(class="btn btn-primary" @click="_settings" v-bind:disabled="enabled") 提交
 </template>
+
 <script>
 import {CheckRegex} from '../utils/checkRegex.js'
+import {mapState} from 'vuex'
 export default {
-    name:"Register",
-    data(){
-        return{
-            registerData:{
+     name:'modifyDatum',
+     data(){
+         return {
+            DatumData:{
                 name:'',
                 phone:'',
-                password:'',
-                confirmPassword:'',
-                code: ''
+                code:''
             },
             count: 60,
             btn:{
                 validate: '验证码',
                 valdisabled: true,
             }
-        }
-    },
-    computed:{
+         }
+     },
+     computed:{
         enabled(){
-             return !this.registerData.name||!this.registerData.phone||!this.registerData.password||!this.registerData.confirmPassword||!this.registerData.code
-        }
+             return !this.DatumData.name||!this.DatumData.phone||!this.DatumData.code
+        },
+        ...mapState('user',{
+            userId:state=>state.userInfo.userId
+        })
     },
-     watch:{
-        registerData:{
+    watch:{
+        DatumData:{
             handler:function(val,oldVal){
                 if(CheckRegex(/^1[345789]\d{9}$/, val.phone)){
                    this.btn.valdisabled = false
@@ -61,46 +62,39 @@ export default {
             deep: true
         }
     },
-    methods:{
-        _register(){
-            if (!CheckRegex(/^1[34578]\d{9}$/, this.registerData.phone)) {
-                this.$store.commit('stateBox/popUpToast', {
-                    text: '请输入正确的11位电话号码',
-                    display: true,
-                })
-                    return
-            }
-            if (!this.registerData.code) {
-                this.$store.commit('stateBox/popUpToast', {
-                    text: '请输入验证码',
-                    display: true,
-                })
-                return
-            }
-            if (!this.registerData.name) {
+     methods:{
+         _settings(){
+             if (!this.DatumData.name) {
                 this.$store.commit('stateBox/popUpToast', {
                     text: '请输入用户名',
                     display: true,
                 })
                 return
             }
-            if (this.registerData.password !== this.registerData.confirmPassword) {
+            if (!CheckRegex(/^1[34578]\d{9}$/, this.DatumData.phone)) {
                 this.$store.commit('stateBox/popUpToast', {
-                    text: '两次密码不一致，请重新输入',
+                    text: '请输入正确的11位电话号码',
                     display: true,
-            })
+                })
+                    return
+            }
+            if (!this.DatumData.code) {
+                this.$store.commit('stateBox/popUpToast', {
+                    text: '请输入验证码',
+                    display: true,
+                })
                 return
-            } 
-            this.$store.dispatch('user/register',{
-                phone: this.registerData.phone,
-                password: this.registerData.password,
-                userName: this.registerData.name,
-                verfCode: this.registerData.code,
-                openId: "omPtpwg8ezeS_cVGGROfIzSQUZdw"
+            }
+            this.$store.dispatch('user/modifyDatum',{
+                userId: this.userId,
+                phone: this.DatumData.phone,
+                userName: this.DatumData.name,
+                verfCode: this.DatumData.code,
             })
-        },
-        _getVerCode(){
-           if (!CheckRegex(/^1[345789]\d{9}$/, this.registerData.phone)) {
+            
+         },
+         _getVerCode(){
+           if (!CheckRegex(/^1[345789]\d{9}$/, this.DatumData.phone)) {
                 this.$store.commit('stateBox/popUpToast', {
                     text: '请输入正确的11位电话号码',
                     display: true,
@@ -120,15 +114,16 @@ export default {
                }
            },1000) 
            this.$store.dispatch('user/verfCode',{
-               phone: this.registerData.phone
+               phone: this.DatumData.phone
            }) 
         }
-    }
+     }
 }
 </script>
+
 <style lang="stylus">
     @import "./../assets/stylus/common.stylus"
-    .register
+    .Datum
         padding-top 2rem
         &__item
             display flex
@@ -153,11 +148,9 @@ export default {
             &-input
                 widthHeightLineHeightFontSize(100%, 100%, 2rem,.9rem)
                 border none 
-                outline 0
                 letter-spacing .2rem
                 text-indent 1.5rem
                 background-color transparent
-                color #ffffff
             &-validate
                 height 2.2rem
                 margin .2rem .2rem 
@@ -167,3 +160,5 @@ export default {
             margin 2.5rem auto
             border none
 </style>
+
+

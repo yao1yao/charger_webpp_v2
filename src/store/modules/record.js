@@ -31,7 +31,7 @@ const actions={
             commit(STATUS_EVENT.GET_RECHAGER_RECORD,res)
         }).catch(error=>{
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                text: error.errMsg||'服务器开小差了,稍后再试',
+                text: error.errMsg||'暂无法获取用户最新信息',
                 display: true
             },{root:true})
         })

@@ -16,8 +16,11 @@ import RechargeRecord from './views/RechargeRecord'
 import Account from './views/Account'
 import Recharge from './views/Recharge'
 import MonthlyFee from './views/MonthlyFee'
+import ModifyDatum from './views/ModifyDatum.vue'
 import ViewError from './views/Error.vue'
 import Focus from './views/Focus.vue'
+import CompanyAuth from './views/CompanyAuth.vue'
+import AboutUs from './views/AboutUs.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -41,5 +44,8 @@ export default new Router({
     {path: '/monthly-fee',component: MonthlyFee},
     {path: '/error',component: ViewError},
     {path: '/focus',component: Focus},
+    {path: '/modify-datum',component: ModifyDatum},
+    {path: '/company-auth',component: CompanyAuth},
+    {path: '/about-us',component: AboutUs}
   ]
 })

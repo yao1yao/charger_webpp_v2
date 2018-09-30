@@ -91,6 +91,11 @@ export default {
             this.$store.dispatch('charger/updateChargerInfo',this.arr.join(''));
         }
     },
+    mounted(){
+        this.$store.dispatch('user/getNewestBalance',{
+            userId: this.userId
+        })
+    },
     methods:{
         payBalance(){
             if(!this.value){

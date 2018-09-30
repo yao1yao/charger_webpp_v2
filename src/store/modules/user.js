@@ -6,6 +6,7 @@ import {getVerfCode} from '../../api/getVerfCode'
 import {register} from '../../api/register'
 import {forgetPwd} from '../../api/fogetpwd'
 import {feedback} from '../../api/feedback'
+import {getNewestBalance} from '../../api/getNewestBalance'
 export const USER_STATUS = {
     CHARGING: 'charging',
     LOGIN : 'login',
@@ -91,6 +92,13 @@ const actions={
                 display: true
             },{root:true})
         })
+    },
+    getNewestBalance({commit},data){
+        getNewestBalance(data).then(res=>{
+            commit(STATUS_EVENT.GET_NEWEST_BALANCE,res.balance)
+        }).catch(error=>{
+            console.log('获取最新余额失败');
+        })
     }
 }
 
@@ -100,6 +108,9 @@ const mutations = {
     },
     [STATUS_EVENT.CHANGE_USER_STATUS](state,status){
         state.userStatus = status
+    },
+    [STATUS_EVENT.GET_NEWEST_BALANCE](state,balance){
+        state.userInfo.balance = balance
     }
 }
 

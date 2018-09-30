@@ -3,7 +3,8 @@ export const STATUS_EVENT = {
     LOGIN: 'login', // 登录 
     CHANGE_USER_STATUS: 'changeUserStatus',  // 切换用户状态
     FEED_BACK: 'feedback',  // 用户反馈
-    
+    GET_NEWEST_BALANCE: 'getNewestBalance', // 更新用户余额
+
     // stateBox event
     SENDREQUEST: 'sendRequest',   // 等待框
     POP_UP_MODAL: 'popUpModal',   // 确认模态框

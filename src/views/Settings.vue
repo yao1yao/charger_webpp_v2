@@ -37,12 +37,14 @@ export default {
             list-style-type none 
             margin-top 2rem
         &__item
+            width 80%
+            margin 0 auto
             display block
             margin-top 1rem
             font-size 1rem
             font-weight bold
             color #878787
-            border-bottom 4px solid #e5e5e5
+            border-bottom 2px solid #e5e5e5
             text-decoration: none;
             line-height: 2.5rem;
             text-align: left;

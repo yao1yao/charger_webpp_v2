@@ -35,8 +35,7 @@ export default {
     name: 'User',
     data () {
         return {
-            userName:"关关关",
-            phoneNumber:"18819456729"
+        
         }
     },
      filters:{
@@ -52,6 +51,9 @@ export default {
     },
     mounted(){
         this.$store.dispatch('record/getRechargeReocrd',{
+            userId: this.userInfo.userId
+        }),
+        this.$store.dispatch('user/getNewestBalance',{
             userId: this.userInfo.userId
         })
     }

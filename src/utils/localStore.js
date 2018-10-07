@@ -7,7 +7,7 @@ export const localStore = {
     },
     clear(item=null){
         if(item){
-            return localStorage.removeItem()
+            return localStorage.removeItem(item)
         }else{
             return localStorage.clear()
         }

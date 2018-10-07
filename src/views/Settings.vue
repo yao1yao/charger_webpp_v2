@@ -18,11 +18,19 @@
 
 
 <script>
+import {mapState} from 'vuex'
 export default {
     name: "Settings",
+    computed:{
+        ...mapState('user',{
+            userId: state=>state.userInfo.userId
+        })
+    },
     methods:{
         logOut(){
-            
+            this.$store.dispatch('user/logout',{
+                userId: this.userId
+            })
         }
     }
 }
@@ -40,7 +48,7 @@ export default {
             list-style-type none 
             padding-top 2rem
         &__item
-            width 80%
+            width 70%
             margin 0 auto
             display block
             margin-top 1rem
@@ -51,7 +59,7 @@ export default {
             text-decoration: none;
             line-height: 2.5rem;
             text-align: left;
-            padding-left: 3rem;
+            text-indent: .1rem;
             position: relative;
             &:after
                 content: " ";
@@ -66,11 +74,12 @@ export default {
                 position: absolute;
                 top: 50%;
                 margin-top: -2px;
-                right: 3rem;
+                right: 2rem;
         &__btn
-            width 90%
+            width 70%
             margin 0 auto
             position absolute
             bottom 25%
+            left 15%
 
 </style>

@@ -45,6 +45,10 @@ const mutations = {
     [STATUS_EVENT.GET_RECHAGER_RECORD](state,reChargerRecord){
         state.reChargerRecord = reChargerRecord
     },
+    [STATUS_EVENT.CLEAR_RECORD_INFO](state){
+        state.chargerRecord={}
+        state.reChargerRecord={}
+    }
 }
 
 export default{

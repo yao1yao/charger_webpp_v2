@@ -8,6 +8,7 @@ import {forgetPwd} from '../../api/fogetpwd'
 import {feedback} from '../../api/feedback'
 import {getNewestBalance} from '../../api/getNewestBalance'
 import {modifyDatum} from '../../api/modifyDatum'
+import {logout} from '../../api/logout'
 export const USER_STATUS = {
     CHARGING: 'charging',
     LOGIN : 'login',
@@ -115,6 +116,16 @@ const actions={
                 display: true
             },{root:true})
         })
+    },
+    logout({commit},data){
+        logout(data).then(res=>{
+            commit(STATUS_EVENT.LOG_OUT),
+            commit('record/'+STATUS_EVENT.CLEAR_RECORD_INFO,{},{root:true})
+            commit('charger/'+STATUS_EVENT.CLEAR_CHARGER_INFO,{},{root:true})
+            // 清除缓存
+            localStore.clear('state');
+            router.replace({path:'/login'})
+        })
     }
 }
 
@@ -131,6 +142,10 @@ const mutations = {
     [STATUS_EVENT.MODFIY_DATUM](state,datum){
         state.userInfo.userName = datum.userName
         state.userInfo.phone = datum.phone
+    },
+    [STATUS_EVENT.LOG_OUT](state){
+        state.USER_STATUS = USER_STATUS.LOGIN
+        state.userInfo={}
     }
 }
 

@@ -127,6 +127,25 @@ const mutations={
         if(state.chargingInfo.errTimes>2){
             state.chargingInfo.errTimes=0
         }
+    },
+    [STATUS_EVENT.CLEAR_CHARGER_INFO](state){
+        state.chargerInfo={
+            devicePower:0,
+            serviceRate:0,
+            energyRate:0
+        },
+        state.chargingInfo={
+            setDuration: 0,
+            setEnergy: 0,
+            energy: 0,
+            chargerNumber: 0,
+            duration: 0,
+            voltage: 0,
+            current: 0,
+            power: 0,
+            type: 0,
+            errTimes: 0
+        }
     }
 }
 

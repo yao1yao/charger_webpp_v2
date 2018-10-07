@@ -5,6 +5,8 @@ export const STATUS_EVENT = {
     FEED_BACK: 'feedback',  // 用户反馈
     GET_NEWEST_BALANCE: 'getNewestBalance', // 更新用户余额
     MODFIY_DATUM: 'modifyDatum',     // 修改资料
+    LOG_OUT: 'logout',              // 登出
+
 
     // stateBox event
     SENDREQUEST: 'sendRequest',   // 等待框
@@ -19,8 +21,11 @@ export const STATUS_EVENT = {
     START_CHARGING: 'startCharging',           // 开始充电  
     CACLUATE_ERROR_TIMES:'cacluateErrorTimes',  // 计算获取充电次数失败的次数
     END_CHARGING: 'endCharging',                // 结束充电
+    CLEAR_CHARGER_INFO: 'clearChargerInfo', // 退出登录的时候，恢复到初始状态
 
-    // record event
+
+    // record event 
     GET_CHARGER_RECORD:'getChargerReocrd', // 获取充电记录
     GET_RECHAGER_RECORD:'getRechargeReocrd', // 获取充电记录
+    CLEAR_RECORD_INFO: 'clearRecordInfo'  // 退出登录的时候，恢复到初始状态
 }

@@ -144,7 +144,7 @@ const mutations = {
         state.userInfo.phone = datum.phone
     },
     [STATUS_EVENT.LOG_OUT](state){
-        state.USER_STATUS = USER_STATUS.LOGIN
+        state.userStatus = USER_STATUS.INVALID
         state.userInfo={}
     }
 }

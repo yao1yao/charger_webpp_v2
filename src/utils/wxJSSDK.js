@@ -3,6 +3,24 @@ import {ChargerError, ERR_TYPE} from './chargerError'
 import wx from 'weixin-js-sdk'
 import isWX from './isWX.js'
 
+export function getLocation(){
+    return new Promise((resolve,reject)=>{
+        wx.getLocation({
+        type: 'wgs84',
+        success:function(res){
+            // let latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            // let longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            resolve(res)
+        },
+        fail:(res)=>{
+            alert(JSON.stringify(res));
+            reject(new ChargerError(ERR_TYPE.PAY_ERR, "获取定位失败"))
+        },
+     })
+   })
+}
+
+
 export function wxPay(payParam){
     return new Promise((resolve,reject)=>{
         wx.chooseWXPay({
@@ -48,3 +66,4 @@ function _parseWX(wxHandle){
         })
     });
 }
+

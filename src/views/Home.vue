@@ -100,7 +100,7 @@
                     this.center.lng = res.longitude
                 }).catch(error=>{
                     this.$store.commit('stateBox/popUpToast',{
-                        text: '网络异常,无法获取地理位置',
+                        text: error.errMsg,
                         display: true
                     });
                 })

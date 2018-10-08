@@ -16,6 +16,6 @@ export const CHARGING_TYPE = {
     CONNECTED: 1, //已连接
     CHARGING: 2, //充电中
     IDLE: 4, //空闲
-    ERR: 10 //错误
+    ERR: [16400,16416,16448,16640,16896,16402,16418,16450,16514] //错误
   };
   

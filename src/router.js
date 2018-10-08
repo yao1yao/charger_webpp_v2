@@ -21,6 +21,7 @@ import ViewError from './views/Error.vue'
 import Focus from './views/Focus.vue'
 import CompanyAuth from './views/CompanyAuth.vue'
 import AboutUs from './views/AboutUs.vue'
+import Home from './views/Home.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +47,7 @@ export default new Router({
     {path: '/focus',component: Focus},
     {path: '/modify-datum',component: ModifyDatum},
     {path: '/company-auth',component: CompanyAuth},
+    {path: '/home',component: Home},
     {path: '/about-us',component: AboutUs}
   ]
 })

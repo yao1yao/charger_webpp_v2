@@ -61,7 +61,6 @@ export default {
             handler: function (val) {
             var self = this;
             if(!val) {
-                console.log(self.arr.join(''))
                 this.$store.dispatch('charger/updateChargerInfo',self.arr.join(''));
                }
             }
@@ -114,7 +113,7 @@ export default {
         payWechat(){
             let openId = this.openId
             let userId = this.userId
-            let rechargeMoney=1
+            let rechargeMoney=this.rechargeMoney*100
             pay({
                 openId,
                 rechargeMoney,

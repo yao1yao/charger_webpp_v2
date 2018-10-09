@@ -21,7 +21,7 @@
             +userItem("icon-user-info-phone", "{{userInfo.phone}}")
         div.consume
             +consumeItem("余额","{{userInfo.balance|formatMoney}}")
-            +consumeItem("消费","{{reChargerRecord.sumRechargeMoney|formatMoney}}")
+            +consumeItem("消费","{{reChargerRecord.sumSpendMoney|formatMoney}}")
         div.service 用户服务
         div.menu
             +menuItem("{path:'/account'}","{path:'/settings'}","icon-withdraw-cash","icon-user-account","账户管理","设置")

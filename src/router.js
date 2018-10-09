@@ -47,7 +47,8 @@ export default new Router({
     {path: '/focus',component: Focus},
     {path: '/modify-datum',component: ModifyDatum},
     {path: '/company-auth',component: CompanyAuth},
-    {path: '/home',component: Home},
-    {path: '/about-us',component: AboutUs}
+    {path: '/home',name:'home',component: Home},
+    {path: '/about-us',component: AboutUs},
+    {path: '*', redirect: '/home' }
   ]
 })

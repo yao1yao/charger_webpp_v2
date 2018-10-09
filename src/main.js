@@ -35,6 +35,7 @@ router.beforeEach((to,from,next)=>{
            text: '请先登录',
            display: true
         })
+       next({path: '/login'})
      // 如果状态为登录，那么不能访问的页面，登录，注册，忘记密码，充电状态实时显示   
     }else if(status===USER_STATUS.LOGIN && (NotChargingPage.indexOf(to.path)>=0)){
        next({path: '/charger'})

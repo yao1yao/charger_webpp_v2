@@ -111,21 +111,24 @@ export default {
             })
         },
         payWechat(){
+            console.log(this.value)
             let openId = this.openId
             let userId = this.userId
-            let rechargeMoney=this.rechargeMoney*100
+            // let rechargeMoney=this.payForMoney
+            let rechargeMoney=1
+            let that = this;
             pay({
                 openId,
                 rechargeMoney,
                 userId
             }).then(function(res){
                 if(res==='success'){
-                    this.$store.dispatch('charger/startCharging',{
+                    that.$store.dispatch('charger/startCharging',{
                     openId: openId,
-                    type: this.current,
+                    type: that.current,
                     userId: userId,
-                    chargerNumber: parseInt(this.arr.join('')),
-                    value: this.value,
+                    chargerNumber: parseInt(that.arr.join('')),
+                    value: that.value,
                     payType:PAY_TYPE.WECHAT
                     })
                 }

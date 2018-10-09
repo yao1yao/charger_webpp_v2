@@ -22,7 +22,8 @@ export const USER_STATUS = {
  */
 const state = localStore.get('state').user || {
     userInfo:{},
-    userStatus: USER_STATUS.INVALID
+    userStatus: USER_STATUS.INVALID,
+    openId:''
 }
 
 const actions={
@@ -31,7 +32,12 @@ const actions={
         login(data).then(res=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit(STATUS_EVENT.LOGIN, res)
-            commit(STATUS_EVENT.CHANGE_USER_STATUS, USER_STATUS.LOGIN)
+            if(res.isCharging){
+                commit(STATUS_EVENT.CHANGE_USER_STATUS, USER_STATUS.CHARGING)
+                commit('charger/' + STATUS_EVENT.GET_CHARGER_INFO, res.chargingInfo, {root: true})
+            }else{
+                commit(STATUS_EVENT.CHANGE_USER_STATUS, USER_STATUS.LOGIN)
+            }
             router.replace({path: '/home'})
         }).catch(error=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
@@ -146,6 +152,9 @@ const mutations = {
     [STATUS_EVENT.LOG_OUT](state){
         state.userStatus = USER_STATUS.INVALID
         state.userInfo={}
+    },
+    [STATUS_EVENT.GET_OPENID](state,openId){
+        state.openId = openId
     }
 }
 

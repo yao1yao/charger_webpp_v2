@@ -21,7 +21,8 @@
 </template>
 <script>
 import {mapState} from 'vuex'
-import { USER_STATUS} from './../store/modules/user'
+import {USER_STATUS} from './../store/modules/user'
+import {STATUS_EVENT}  from '../store/mutation-types'
 import wx from 'weixin-js-sdk'
 
 export default {
@@ -36,6 +37,17 @@ export default {
          Userstatus(){
              return this.userStatus!==USER_STATUS.LOGIN
          }
+     },
+     created(){
+        if(this.$route.query.chargerNumber){
+            let chargingInfo={
+                set_duration: this.$route.query.setDuration,
+                set_energy: this.$route.query.setEnergy,
+                charger_number: this.$route.query.chargerNumber,
+                charging_type: this.$route.query.chargingType
+            }
+            this.$store.commit('charger/' + STATUS_EVENT.GET_CHARGER_INFO,chargingInfo, {root: true})
+        }
      },
      methods:{
       inputChargingNumber(){

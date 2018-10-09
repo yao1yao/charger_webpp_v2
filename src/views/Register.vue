@@ -26,6 +26,7 @@
 </template>
 <script>
 import {CheckRegex} from '../utils/checkRegex.js'
+import {mapState} from 'vuex'
 export default {
     name:"Register",
     data(){
@@ -47,7 +48,10 @@ export default {
     computed:{
         enabled(){
              return !this.registerData.name||!this.registerData.phone||!this.registerData.password||!this.registerData.confirmPassword||!this.registerData.code
-        }
+        },
+        ...mapState('user',{
+            openId: state=>state.openId
+        })
     },
      watch:{
         registerData:{
@@ -88,7 +92,14 @@ export default {
                 this.$store.commit('stateBox/popUpToast', {
                     text: '两次密码不一致，请重新输入',
                     display: true,
-            })
+                })
+                return
+            } 
+            if (!this.openId) {
+                this.$store.commit('stateBox/popUpToast', {
+                    text: '手机微信号已注册',
+                    display: true,
+                })
                 return
             } 
             this.$store.dispatch('user/register',{
@@ -96,7 +107,7 @@ export default {
                 password: this.registerData.password,
                 userName: this.registerData.name,
                 verfCode: this.registerData.code,
-                openId: "omPtpwg8ezeS_cVGGROfIzSQUZdw"
+                openId: this.openId
             })
         },
         _getVerCode(){

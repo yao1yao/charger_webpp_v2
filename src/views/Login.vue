@@ -32,6 +32,7 @@
                         span(class="icon-login-wechat login__way-wechat")
 </template>
 <script>
+import {STATUS_EVENT}  from '../store/mutation-types'
 export default {
     name: "Login",
     data(){
@@ -43,6 +44,15 @@ export default {
     computed:{
         enabled(){
             return !this.phone || !this.password
+        }
+    },
+    created(){
+        if(this.$route.query.openId){
+            this.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: '请登录,无账号请注册',
+                display: true
+            })
+            this.$store.commit('user/'+STATUS_EVENT.GET_OPENID,this.$route.query.openId)
         }
     },
     methods:{

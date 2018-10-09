@@ -13,7 +13,6 @@ export function getLocation(){
             resolve(res)
         },
         fail:(res)=>{
-            alert(JSON.stringify(res));
             reject(new ChargerError(ERR_TYPE.PAY_ERR, "获取定位失败"))
         },
      })
@@ -33,12 +32,10 @@ export function wxPay(payParam){
                 resolve(res)
             },
             fail:(res)=>{
-                alert(JSON.stringify(res));
                 reject(new ChargerError(ERR_TYPE.PAY_ERR, "微信支付失败"))
             },
             cancel:(res)=>{
                 reject(new ChargerError(ERR_TYPE.PAY_CANCEL, "取消微信支付"))
-                alert(JSON.stringify(res));
             }
         })
     })

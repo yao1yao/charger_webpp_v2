@@ -73,7 +73,7 @@ const actions={
                 },{root:true})
                 if(state.chargingInfo.errTimes>1){
                     router.replace({path: '/charger'})
-                    commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.LOGIN,{root:true})
+                    //commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.LOGIN,{root:true})
                 }
         })
     },
@@ -121,6 +121,12 @@ const mutations={
         state.chargingInfo.current = chargingInfo.current
         state.chargingInfo.power = chargingInfo.power
         state.chargingInfo.duration = chargingInfo.duration
+    },
+    [STATUS_EVENT.GET_CHARGER_INFO](state,chargerInfo){
+        state.chargingInfo.setDuration = chargerInfo.set_duration
+        state.chargingInfo.setEnergy = chargerInfo.set_energy
+        state.chargingInfo.chargerNumber = chargerInfo.charger_number
+        state.chargingInfo.type = chargerInfo.charging_type
     },
     [STATUS_EVENT.CACLUATE_ERROR_TIMES](state){
         state.chargingInfo.errTimes++

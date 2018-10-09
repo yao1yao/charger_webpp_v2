@@ -1,3 +1,7 @@
 export function formatMoney(value){
-    return value.toFixed(2) + ' '+'¥'
+    if(value){
+        return value.toFixed(2) + ' '+'¥'
+    }else{
+        return value
+    }
 }

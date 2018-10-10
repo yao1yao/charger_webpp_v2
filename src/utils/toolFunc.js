@@ -6,3 +6,9 @@ function createMsgId(){
     return hashIds.encode(1)
 }
 export const msgId = createMsgId()
+
+// 判断一个数是否为正整数
+export function isInteger(number){
+    let obj = parseInt(number)
+    return  typeof obj=== 'number'&& obj!=0 && obj%1===0
+}

@@ -22,6 +22,7 @@
 import {pay} from './../api/pay'
 import {mapState} from 'vuex'
 import {STATUS_EVENT} from './../store/mutation-types.js'
+import {isInteger} from './../utils/toolFunc.js'
 export default {
     name:"Recharge",
     data () {
@@ -50,9 +51,9 @@ export default {
             let rechargeMoney= self.rechargerMoney
             let openId = self.openId
             let userId = self.userId
-            if(rechargeMoney==0){
+            if(!isInteger(rechargeMoney)){
                 self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                    text: '请输入非 0 金额',
+                    text: '请输入非 0 整数金额',
                     display: true
                 })
             }else{

@@ -73,11 +73,13 @@ const actions={
         }).catch(error=>{
                 // 如果仅仅是手机端的网络异常
                 if(typeof(error.errMsg)==='undefined'){
-                    commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                        text: '网络异常,稍后再试',
-                        display: true
-                    },{root:true})
-                    router.replace({path: '/charger'})
+                    setTimeout(()=>{
+                        commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                            text: '网络异常,暂无法获取最新充电信息',
+                            display: true
+                        },{root:true})
+                        // router.replace({path: '/charger'})
+                    },2000)
                  // 如果是服务器抛出的异常   
                 }else{
                     commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{

@@ -34,7 +34,7 @@
              condition = '枪头已连接'
             break;
            case 2:
-             condition = '电桩充电'
+             condition = '电桩充电中'
              break;
            case 3:
              condition = '电桩已预约'
@@ -132,3 +132,4 @@
         font-size: 2rem;
     
 </style>
+

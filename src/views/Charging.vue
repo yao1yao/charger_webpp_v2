@@ -44,9 +44,9 @@ export default {
                 set_duration: this.$route.query.setDuration,
                 set_energy: this.$route.query.setEnergy,
                 charger_number: this.$route.query.chargerNumber,
-                charging_type: this.$route.query.chargingType
+                charging_type: parseInt(this.$route.query.chargingType)
             }
-            this.$store.commit('charger/' + STATUS_EVENT.GET_CHARGER_INFO,chargingInfo, {root: true})
+            this.$store.commit('charger/' + STATUS_EVENT.GET_CHARGER_INFO, chargingInfo)
         }
      },
      methods:{

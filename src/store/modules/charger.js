@@ -5,6 +5,7 @@ import {localStore} from '../../utils/localStore'
 import {startCharging} from '../../api/startCharging'
 import {endCharging} from '../../api/endCharging'
 import {getChargingInfo} from '../../api/getChargingInfo'
+import {getAllChargerInfo} from '../../api/home'
 import  {USER_STATUS} from './user'
 /**
  * @property {Object} state.chargerInfo  - 存储设备的信息，包括功率，服务费，电费
@@ -29,6 +30,9 @@ const state = localStore.get('state').charger || {
         power: 0,
         type: 0,
         errTimes: 0
+    },
+    allChargerInfo:{
+
     }
 }
 
@@ -55,25 +59,33 @@ const actions={
             if(res.isCharging){
                 commit(STATUS_EVENT.UPDATE_CHARGING_INFO,res)
             }else{
+            // 如果是其他状态，说明已经不在充电状态了    
                 commit(STATUS_EVENT.CACLUATE_ERROR_TIMES)
                 commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                     text: '设备异常，即将结束充电',
                     display: true
                 },{root:true})
-                if(state.chargingInfo.errTimes>1){
+                if(state.chargingInfo.errTimes>2){
                     router.replace({path: '/charger'})
                     commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.LOGIN,{root:true})
                 }
             }
         }).catch(error=>{
-                commit(STATUS_EVENT.CACLUATE_ERROR_TIMES)
-                commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                    text: error.errMsg||'服务器开小差了,稍后再试',
-                    display: true
-                },{root:true})
-                if(state.chargingInfo.errTimes>1){
+                // 如果仅仅是手机端的网络异常
+                if(typeof(error.errMsg)==='undefined'){
+                    commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                        text: '网络异常,稍后再试',
+                        display: true
+                    },{root:true})
                     router.replace({path: '/charger'})
-                    //commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.LOGIN,{root:true})
+                 // 如果是服务器抛出的异常   
+                }else{
+                    commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                        text: '设备已停止充电',
+                        display: true
+                    },{root:true})
+                    router.replace({path: '/charger'})
+                    commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.LOGIN,{root:true})
                 }
         })
     },
@@ -95,11 +107,22 @@ const actions={
                 chargerNumber: res.chargerNumber,
                 type:res.type
             })
-            router.replace({path: '/charger/status'})
             commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.CHARGING,{root:true})
+
+            router.replace({path: '/charger/status'})
         }).catch(error=>{
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: error.errMsg||'设备无法开启，稍后重试',
+                display: true
+            },{root:true})
+        })
+    },
+    [STATUS_EVENT.GET_ALL_CHARGER_INFO]({commit},data){
+        getAllChargerInfo(data).then(res=>{
+            commit(STATUS_EVENT.GET_ALL_CHARGER_INFO,res)
+        }).catch(error=>{
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg||'暂无法获取最新充电桩信息',
                 display: true
             },{root:true})
         })
@@ -130,7 +153,7 @@ const mutations={
     },
     [STATUS_EVENT.CACLUATE_ERROR_TIMES](state){
         state.chargingInfo.errTimes++
-        if(state.chargingInfo.errTimes>2){
+        if(state.chargingInfo.errTimes>3){
             state.chargingInfo.errTimes=0
         }
     },
@@ -152,6 +175,9 @@ const mutations={
             type: 0,
             errTimes: 0
         }
+    },
+    [STATUS_EVENT.GET_ALL_CHARGER_INFO](state,allChargerInfo){
+        state.allChargerInfo = allChargerInfo
     }
 }
 

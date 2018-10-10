@@ -22,6 +22,8 @@ export const STATUS_EVENT = {
     END_CHARGING: 'endCharging',                // 结束充电
     GET_CHARGER_INFO: 'getChargerInfo',                // 登录时获取当前充电的设备编号
     CLEAR_CHARGER_INFO: 'clearChargerInfo', // 退出登录的时候，恢复到初始状态
+    GET_ALL_CHARGER_INFO:'getAllChargerInfo', // 获取所有的充电桩信息
+
 
     // record event 
     GET_CHARGER_RECORD:'getChargerReocrd', // 获取充电记录

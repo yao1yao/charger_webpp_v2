@@ -105,7 +105,7 @@ const actions={
         getNewestBalance(data).then(res=>{
             commit(STATUS_EVENT.GET_NEWEST_BALANCE,res.balance)
         }).catch(error=>{
-            console.log('获取最新余额失败');
+            console.log(error.errMsg)
         })
     },
     modifyDatum({commit},data){

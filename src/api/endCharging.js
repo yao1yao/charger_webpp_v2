@@ -2,7 +2,6 @@ import {ERR_TYPE, ChargerError} from '../utils/chargerError'
 import {msgId} from '../utils/toolFunc'
 import axios from 'axios'
 
-
 export async function endCharging(chargerdata){
     let resp = await axios.post('/v1/charger-end',Object.assign(
         {msgId},chargerdata

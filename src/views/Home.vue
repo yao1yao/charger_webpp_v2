@@ -76,6 +76,9 @@
            ...mapState('user', {
                userId: state=>state.userInfo.userId
            }),
+           ...mapState('charger',{
+               allChargerInfo:state=>state.allChargerInfo
+           })
         },
         mounted(){
             this.init()
@@ -83,17 +86,22 @@
         methods:{
             init(){
                 // 获取所有充电桩信息
-                getAllChargerInfo({
+                // getAllChargerInfo({
+                //     userId:this.userId
+                // }).then((res)=>{
+                //     this.addressList=res
+                //     this.addressFilter=this.addressList
+                // }).catch(error=>{
+                //     this.$store.commit('stateBox/popUpToast',{
+                //         text: '暂无法获取最新的电桩信息',
+                //         display: true
+                //     });
+                // })
+                this.$store.dispatch('charger/getAllChargerInfo',{
                     userId:this.userId
-                }).then((res)=>{
-                    this.addressList=res
-                    this.addressFilter=this.addressList
-                }).catch(error=>{
-                    this.$store.commit('stateBox/popUpToast',{
-                        text: '服务器开小差,稍后再试',
-                        display: true
-                    });
                 })
+                this.addressList=this.allChargerInfo
+                this.addressFilter=this.addressList
                 // 设置地图中心为当前用户位置
                 getLocation().then(res=>{
                     this.center.lat = res.latitude

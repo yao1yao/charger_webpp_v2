@@ -50,7 +50,7 @@ export default {
             let rechargeMoney= self.rechargerMoney
             let openId = self.openId
             let userId = self.userId
-            if(rechargeMoney===0){
+            if(rechargeMoney==0){
                 self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                     text: '请输入非 0 金额',
                     display: true

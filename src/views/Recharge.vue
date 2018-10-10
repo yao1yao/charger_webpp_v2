@@ -47,31 +47,36 @@ export default {
     methods:{
         pay(){ 
             let self = this
-            let rechargeMoney= 1
+            let rechargeMoney= self.rechargerMoney
             let openId = self.openId
             let userId = self.userId
-            pay({
-                openId,
-                rechargeMoney,
-                userId
-            }).then(function(res){
-                // 更新当前总余额
-                if(res==='success'){
-                    let balance = self.balance+self.rechargerMoney
-                    self.$store.commit('user/getNewestBalance',balance)
-                    self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                        text: '充值成功',
-                        display: true
-                    })
-                    alert(that.balance)
-                }
-            }).catch(error=>{
-                console.log(error)
+            if(rechargeMoney===0){
                 self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                        text: '暂无法支付，稍后再试',
-                        display: true
+                    text: '请输入非 0 金额',
+                    display: true
                 })
-            })
+            }else{
+                pay({
+                    openId,
+                    rechargeMoney,
+                    userId
+                }).then(function(res){
+                    // 更新当前总余额
+                    if(res==='success'){
+                        let balance = self.balance+self.rechargerMoney
+                        self.$store.commit('user/getNewestBalance',balance)
+                        self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                            text: '充值成功',
+                            display: true
+                        })
+                    }
+                }).catch(error=>{
+                    self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                            text: '充值失败',
+                            display: true
+                    })
+                })
+            }
         }
     }
 }

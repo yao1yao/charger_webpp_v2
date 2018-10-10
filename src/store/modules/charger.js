@@ -100,7 +100,9 @@ const actions={
         })
     },
     [STATUS_EVENT.START_CHARGING]({commit},data){
+        commit('stateBox/' + STATUS_EVENT.SENDREQUEST, true, {root: true})
         startCharging(data).then(res=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit(STATUS_EVENT.START_CHARGING,{
                 setDuration: res.setDuration,
                 setEnergy: res.setEnergy,
@@ -108,9 +110,9 @@ const actions={
                 type:res.type
             })
             commit('user/'+  STATUS_EVENT.CHANGE_USER_STATUS,USER_STATUS.CHARGING,{root:true})
-
             router.replace({path: '/charger/status'})
         }).catch(error=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: error.errMsg||'设备无法开启，稍后重试',
                 display: true

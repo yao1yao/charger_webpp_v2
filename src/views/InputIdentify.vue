@@ -111,7 +111,6 @@ export default {
             })
         },
         payWechat(){
-            console.log(this.value)
             let openId = this.openId
             let userId = this.userId
             // let rechargeMoney=this.payForMoney

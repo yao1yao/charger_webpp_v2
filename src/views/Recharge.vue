@@ -57,12 +57,20 @@ export default {
             }).then(function(res){
                 // 更新当前总余额
                 if(res==='success'){
-                    let balance = this.balance+self.rechargerMoney
-                    this.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                    let balance = self.balance+self.rechargerMoney
+                    self.$store.commit('user/getNewestBalance',balance)
+                    self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                         text: '充值成功',
                         display: true
                     })
+                    alert(that.balance)
                 }
+            }).catch(error=>{
+                console.log(error)
+                self.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                        text: '暂无法支付，稍后再试',
+                        display: true
+                })
             })
         }
     }

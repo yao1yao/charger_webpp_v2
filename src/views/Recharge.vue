@@ -20,6 +20,8 @@
 
 <script>
 import {pay} from './../api/pay'
+import {mapState} from 'vuex'
+import {STATUS_EVENT} from './../store/mutation-types.js'
 export default {
     name:"Recharge",
     data () {
@@ -35,19 +37,32 @@ export default {
             ]
         }
     },
+    computed:{
+        ...mapState('user',{
+            userId:state=>state.userInfo.userId,
+            openId:state=>state.userInfo.openId,
+            balance:state=>state.userInfo.balance
+        })
+    },
     methods:{
         pay(){ 
-            console.log(this.rechargerMoney)
             let self = this
-            let rechargeMoney= self.rechargerMoney
-            let openId = "omPtpwg8ezeS_cVGGROfIzSQUZdw"
-            let userId = 48
+            let rechargeMoney= 1
+            let openId = self.openId
+            let userId = self.userId
             pay({
                 openId,
                 rechargeMoney,
                 userId
-            }).then(function(){
+            }).then(function(res){
                 // 更新当前总余额
+                if(res==='success'){
+                    let balance = this.balance+self.rechargerMoney
+                    this.$store.commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                        text: '充值成功',
+                        display: true
+                    })
+                }
             })
         }
     }

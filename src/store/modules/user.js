@@ -9,6 +9,7 @@ import {feedback} from '../../api/feedback'
 import {getNewestBalance} from '../../api/getNewestBalance'
 import {modifyDatum} from '../../api/modifyDatum'
 import {logout} from '../../api/logout'
+import {withDraw} from '../../api/withDraw'
 export const USER_STATUS = {
     CHARGING: 'charging',
     LOGIN : 'login',
@@ -48,12 +49,15 @@ const actions={
         })
     },
     verfCode({commit},data){
+        commit('stateBox/' + STATUS_EVENT.SENDREQUEST, true, {root: true})
         getVerfCode(data).then(res=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: res.message,
                 display: true
             },{root:true})
         }).catch(error=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: error.errMsg||'获取验证码失败,稍后再试',
                 display: true
@@ -61,13 +65,17 @@ const actions={
         })
     },
     register({commit},data){
+        commit('stateBox/' + STATUS_EVENT.SENDREQUEST, true, {root: true})
         register(data).then(res=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
+
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: res.message,
                 display: true
             },{root:true})
             router.replace({path:'/login'})
         }).catch(error=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: error.errMsg||'注册失败,稍后再试',
                 display: true
@@ -89,12 +97,15 @@ const actions={
         })
     },
     feedback({commit},data){
+        commit('stateBox/' + STATUS_EVENT.SENDREQUEST, true, {root: true})
         feedback(data).then(res=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: res.message,
                 display: true
             },{root:true})
         }).catch(error=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: error.errMsg||'反馈失败了,稍后再试',
                 display: true
@@ -103,7 +114,7 @@ const actions={
     },
     getNewestBalance({commit},data){
         getNewestBalance(data).then(res=>{
-            commit(STATUS_EVENT.GET_NEWEST_BALANCE,res.balance)
+            commit(STATUS_EVENT.GET_NEWEST_BALANCE,res)
         }).catch(error=>{
             console.log(error.errMsg)
         })
@@ -132,6 +143,23 @@ const actions={
             localStore.clear('state');
             router.replace({path:'/login'})
         })
+    },
+    withDraw({commit},data){
+        commit('stateBox/' + STATUS_EVENT.SENDREQUEST, true, {root: true})
+        withDraw(data).then(res=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: '提现成功',
+                display: true
+            },{root:true})
+            router.replace({path:'/user'})
+        }).catch(error=>{
+            commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
+            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                text: error.errMsg||'服务器开小差，稍后再试',
+                display: true
+            },{root:true})
+        })
     }
 }
 
@@ -142,8 +170,9 @@ const mutations = {
     [STATUS_EVENT.CHANGE_USER_STATUS](state,status){
         state.userStatus = status
     },
-    [STATUS_EVENT.GET_NEWEST_BALANCE](state,balance){
-        state.userInfo.balance = balance
+    [STATUS_EVENT.GET_NEWEST_BALANCE](state,moneyInfo){
+        state.userInfo.balance = moneyInfo.balance
+        state.userInfo.freeze = moneyInfo.freeze
     },
     [STATUS_EVENT.MODFIY_DATUM](state,datum){
         state.userInfo.userName = datum.userName
@@ -155,7 +184,7 @@ const mutations = {
     },
     [STATUS_EVENT.GET_OPENID](state,openId){
         state.openId = openId
-    }
+    },
 }
 
 export default{

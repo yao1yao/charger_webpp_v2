@@ -7,7 +7,7 @@ export const STATUS_EVENT = {
     MODFIY_DATUM: 'modifyDatum',     // 修改资料
     LOG_OUT: 'logout',              // 登出
     GET_OPENID: 'getOpenId',         // 获取 openId
-
+    WITH_DRAW: 'withDraw',          // 用户提现
     // stateBox event
     SENDREQUEST: 'sendRequest',   // 等待框
     POP_UP_MODAL: 'popUpModal',   // 确认模态框

@@ -15,6 +15,9 @@ export function getLocation(){
         fail:(res)=>{
             reject(new ChargerError(ERR_TYPE.PAY_ERR, "获取定位失败"))
         },
+        cancel:(res)=>{
+            reject(new ChargerError(ERR_TYPE.PAY_ERR, "暂无法获取用户地理位置"))
+        }
      })
    })
 }

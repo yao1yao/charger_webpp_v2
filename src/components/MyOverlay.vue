@@ -5,6 +5,7 @@
         pane="mapPane"
         @draw="draw"
     )
+        div(v-text="text")
         span(@touchstart.stop="handleClick(item)" class="icon-charger-position")
 </template>
 
@@ -14,11 +15,11 @@
       components:{
         BmOverlay
       },
-      props:['position','item'],
+      props:['position','item','text'],
       watch: {
       position: {
             handler () {
-            this.$refs.customOverlay.reload()
+                this.$refs.customOverlay.reload()
             },
             deep: true
         }

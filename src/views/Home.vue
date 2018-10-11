@@ -10,11 +10,13 @@
         bm-scale(anchor="BMAP_ANCHOR_BOTTOM_LEFT")
         bm-navigation(anchor="BMAP_ANCHOR_TOP_LEFT")
         bm-geolocation(anchor="BMAP_ANCHOR_BOTTOM_LEFT" :showAddress="true" :autoLocation="true")
+        my-overlay(:position="center" :class="{'icon-my':true==true}" text="我的位置")
         div(v-for="item in addressFilter")
             my-overlay(:position="{lng:item.mapPosition[0],lat:item.mapPosition[1]}"
                        :class="{'icon-gray':item.status==chargerStatus.OFFLINE,'icon-green':item.status==chargerStatus.CHARGING,'icon-blue':item.status==chargerStatus.IDLE,'icon-green1':item.status==chargerStatus.CONNECTED,'icon-red':item.status==chargerStatus.ERR}"
                        @showChargerInfo="showChargerInfo"
                        :item="item"
+                       text=" "
                       )
         charger-info(
             :chargershow="chargerInfoShow"
@@ -80,34 +82,28 @@
                allChargerInfo:state=>state.allChargerInfo
            })
         },
+        created(){
+            this._getselfLocation()
+        },
         mounted(){
             this.init()
         },
         methods:{
             init(){
-                // 获取所有充电桩信息
-                // getAllChargerInfo({
-                //     userId:this.userId
-                // }).then((res)=>{
-                //     this.addressList=res
-                //     this.addressFilter=this.addressList
-                // }).catch(error=>{
-                //     this.$store.commit('stateBox/popUpToast',{
-                //         text: '暂无法获取最新的电桩信息',
-                //         display: true
-                //     });
-                // })
                 this.$store.dispatch('charger/getAllChargerInfo',{
                     userId:this.userId
                 })
                 this.addressList=this.allChargerInfo
                 this.addressFilter=this.addressList
+            },
+            _getselfLocation(){
                 // 设置地图中心为当前用户位置
+                let self=this
                 getLocation().then(res=>{
-                    this.center.lat = res.latitude
-                    this.center.lng = res.longitude
+                    self.center.lat = res.latitude
+                    self.center.lng = res.longitude
                 }).catch(error=>{
-                    this.$store.commit('stateBox/popUpToast',{
+                    self.$store.commit('stateBox/popUpToast',{
                         text: error.errMsg,
                         display: true
                     });
@@ -193,6 +189,8 @@
      
     .icon-red 
         color red
+    .icon-my
+        color #ad11b7
      
     .home-btn  
         display block;

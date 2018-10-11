@@ -5,7 +5,7 @@
         pane="mapPane"
         @draw="draw"
     )
-        div(v-text="text")
+        div(v-text="text" class="text")
         span(@touchstart.stop="handleClick(item)" class="icon-charger-position")
 </template>
 
@@ -50,5 +50,7 @@
         position absolute
     .icon-charger-position
         font-size 1.8rem
+    .text
+        margin-bottom .2rem
 </style>
 

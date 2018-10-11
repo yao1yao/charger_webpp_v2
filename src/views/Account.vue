@@ -2,24 +2,35 @@
         div.account
             div.account__item
                 div.icon-withdraw-cash.account__item-icon
-                p.account__item-content 可用余额: 20.5 ￥
-                p.account__item-content 冻结金额: 10.5 ￥
+                p.account__item-content 可用余额: {{balance|formatMoney}}
+                p.account__item-content 已冻结金额: {{freeze|formatMoney}}
             div.account__btn
                 button(@click="recharge" class="btn btn-primary account__btn-recharger") 充值
             div.account__btn
-                button(@click="deposit" class="btn btn-primary") 提现
+                button(@click="withDraw" class="btn btn-primary") 提现
 
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import {formatMoney}  from '../filters/formatMoney.js'
 export default {
     name: "Account",
+    computed:{
+        ...mapState('user',{
+            balance: state=>state.userInfo.balance,
+            freeze: state=>state.userInfo.freeze
+        })
+    },
+    filters:{
+        formatMoney
+    },
     methods:{
         recharge(){
             this.$router.push({path:'/recharge'})
         },
-        deposit(){
-
+        withDraw(){
+            this.$router.push({path:'/withdraw'})
         }
     }
 }

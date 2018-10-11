@@ -17,10 +17,10 @@
     div.bg
         div.register
             +registerItem(true,"text","用户名","请输入用户名","registerData.name",40)
-            +registerItem(true,"text","手机号","请输入手机号","registerData.phone",11)
+            +registerItem(true,"tel","手机号","请输入手机号","registerData.phone",11)
             +registerItem(true,"password","密码","请输入密码","registerData.password",20)
             +registerItem(true,"password","验证密码","请重复输入密码","registerData.confirmPassword",20)
-            +registerItem(false,"text","{{btn.validate}}","请输入验证码","registerData.code",6)
+            +registerItem(false,"tel","{{btn.validate}}","请输入验证码","registerData.code",6)
             div.register__btn
                 button(class="btn btn-primary" @click="_register" v-bind:disabled="enabled") 提交
 </template>
@@ -162,13 +162,13 @@ export default {
                 padding-left .5rem
                 wordJustify()
             &-input
-                widthHeightLineHeightFontSize(100%, 100%, 2rem,.9rem)
+                widthHeightLineHeightFontSize(100%, 100%, 1rem,.9rem)
                 border none 
                 outline 0
                 letter-spacing .2rem
                 text-indent 1.5rem
                 background-color transparent
-                color #ffffff
+                color #000
             &-validate
                 height 2.2rem
                 margin .2rem .2rem 

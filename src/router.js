@@ -22,6 +22,7 @@ import Focus from './views/Focus.vue'
 import CompanyAuth from './views/CompanyAuth.vue'
 import AboutUs from './views/AboutUs.vue'
 import Home from './views/Home.vue'
+import WithDraw from './views/WithDraw.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -49,6 +50,7 @@ export default new Router({
     {path: '/company-auth',component: CompanyAuth},
     {path: '/home',name:'home',component: Home},
     {path: '/about-us',component: AboutUs},
+    {path: '/withdraw',component: WithDraw},
     {path: '*', redirect: '/home' }
   ]
 })

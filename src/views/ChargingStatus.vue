@@ -44,7 +44,7 @@ export default {
     },
     created(){
         this.fetchData();
-        this.timer = setInterval(this.fetchData,5000)
+        this.timer = setInterval(this.fetchData,300000)
     },
     beforeRouteLeave(to, from,next){
         clearInterval(this.timer)

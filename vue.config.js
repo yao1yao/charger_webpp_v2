@@ -9,7 +9,9 @@ module.exports={
     outputDir: 'dist',
     // webpack 配置
     chainWebpack: ()=>{},
-    configureWebpack: ()=>{},
+    configureWebpack:{
+        devtool: 'source-map'
+    },
     // 生产环境是否生成 sourceMap 文件
     productionSourceMap: true,
     // webpack-dev-server 相关配置

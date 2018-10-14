@@ -114,7 +114,7 @@ export default {
             let openId = this.openId
             let userId = this.userId
             // let rechargeMoney=this.payForMoney
-            let rechargeMoney=1
+            let rechargeMoney=this.payForMoney
             let that = this;
             pay({
                 openId,

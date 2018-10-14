@@ -12,7 +12,10 @@ export default {
     props:{
         count:{
            type: Object,
-        }
+           default:function(){
+               return {value:0,type:'元',stepValue:10,maxValue:100}
+           }
+        },
     },
     methods:{
         changeValue(data){

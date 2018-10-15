@@ -3,7 +3,7 @@
         router-link(class="footbar__item" :to="{path: '/home'}" replace)
             span(class="footbar__icon icon-charger-search")
             br
-            span(class="footbar__label") 首页
+            span(class="footbar__label") 找桩
         |
         |
         router-link(class="footbar__item" :to="{path: '/charger'}" replace)

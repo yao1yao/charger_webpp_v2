@@ -43,7 +43,6 @@ export default {
         width 90%
         margin 0 auto
         padding 1rem auto 
-        background-color #ffffff
         &__list
             list-style-type none 
             padding-top 2rem

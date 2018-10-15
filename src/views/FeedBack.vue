@@ -19,7 +19,6 @@ div.bg
             )
             p.feedback__item-count 还可以输入 {{contentLeaveLength}} 个字
         p.feedback__explain 😊 请详细描述您的遇到的问题，有助于我们快速定位并解决问题，或留下您宝贵的建议或意见，我们会认真进行评估</p>
-        
         div.feedback__btn
                 button(@click="saveFeedBack" class="btn btn-primary" v-bind:disabled="enabled") 提交反馈
 </template>
@@ -94,13 +93,13 @@ export default {
                 text-align right 
                 font-size .8rem
         &__explain
-            margin-bottom 4rem
             color $color
             font-size .9rem
             line-height 1.5rem
-        &__btn
-            width 100%
-            height 2rem
+         &__btn
+            width: 90%;
+            margin: 1.5rem auto;
+
 </style>
 
 

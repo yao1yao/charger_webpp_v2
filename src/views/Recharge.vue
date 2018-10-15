@@ -12,7 +12,7 @@
             div.recharge__bd-item
                 a(v-for="item in selectMoney" @click="rechargerMoney=item.value" :class="{'recharge__money-on': item.value==rechargerMoney}"  href="javascript:;" class="recharge__money") {{item.value}} 元
             div.recharge__number
-                input(type="number" placeholder="请输入大于 50 充值面额" class="recharge__input" v-model="rechargerMoney")
+                input(type="number" placeholder="请输入整数充值面额" class="recharge__input" v-model="rechargerMoney")
             p(class="recharge__show") {{rechargerMoney}} ￥
         div.recharge__btn
             button(@click="pay" class="btn btn-primary") 立即充值

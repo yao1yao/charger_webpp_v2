@@ -14,9 +14,9 @@
             p(class="charging__logo" @click="scan")
                 span.charging__logo-content
             p(class="charging__scan") 扫码充电
-            div.charging__btn
+            div.charging__btn-hd
                 button(@click="inputChargingNumber" class="btn btn-primary" v-bind:disabled="Userstatus") 输入编号
-            div.charging__btn
+            div.charging__btn-ft
                 button(@click="getChargerStatus" class="btn btn-primary"  v-bind:disabled="!Userstatus") 充电状态
 </template>
 <script>
@@ -126,11 +126,16 @@ export default {
                 beforeAfter(1px, 34%, $whiteColor, 46.7%, 1, 0)
             &:after
                 beforeAfter(1px, 34%, $whiteColor, 46.7%, 0, 0)
-        &__btn
+        &__btn-hd
             width 90%
-            height 1.5rem
-            margin 2rem auto
-            border none
+            beforeAfter(0, 85%, #52bcf8, 50%, 1, 50%)
+            margin-top: 25%
+            margin-left: -42%
+        &__btn-ft
+            width 90%
+            beforeAfter(0, 85%, #52bcf8, 50%, 1, 50%)
+            margin-top: 40%
+            margin-left: -42%    
             
 </style>
 

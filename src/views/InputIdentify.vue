@@ -12,9 +12,9 @@ div.bg
             div.input-identify__pay_item
                 p.input-identify__pay_text 账户余额
                 p.input-identify__pay_number {{balance|formatMoney}}
-        div.input-identify__btn
+        div.input-identify__btn-hd
                 button(@click="payBalance" class="btn btn-primary" v-bind:disabled="enabled") 余额支付
-        div.input-identify__btn         
+        div.input-identify__btn-ft         
                 button(@click="payWechat" class="btn btn-primary"  v-bind:disabled="enabled") 微信支付
 </template>
 
@@ -47,9 +47,9 @@ export default {
         }),
         payForMoney(){
             if(this.current=== CHARGING_TYPE.MONEY){
-                return this.value;
+                return Math.round(this.value);
             }else if(this.current === CHARGING_TYPE.TIME){
-                return (this.value/60)*this.chargerInfo.devicePower*(this.chargerInfo.serviceRate+this.chargerInfo.energyRate)
+                return Math.round((this.value/60)*this.chargerInfo.devicePower*(this.chargerInfo.serviceRate+this.chargerInfo.energyRate))
             }
         },
         enabled(){
@@ -114,8 +114,9 @@ export default {
             let openId = this.openId
             let userId = this.userId
             // let rechargeMoney=this.payForMoney
-            let rechargeMoney=this.payForMoney
+            let rechargeMoney=Math.round(this.payForMoney)
             let that = this;
+            // 判断是否可用
             pay({
                 openId,
                 rechargeMoney,
@@ -152,11 +153,16 @@ export default {
                 color #B71313
                 font-size .9rem
                 padding-top .2rem
-        &__btn
-            width: 90%
-            height 1.5rem
-            margin 1.5rem auto
-            border-radius(2rem)
+        &__btn-hd
+            width 90%
+            beforeAfter(0, 85%, #52bcf8, 50%, 1, 50%)
+            margin-top: 35%
+            margin-left: -43%
+        &__btn-ft
+            width 90%
+            beforeAfter(0, 85%, #52bcf8, 50%, 1, 50%)
+            margin-top: 48%
+            margin-left: -43%
         
 </style>
 

@@ -110,7 +110,7 @@ export default {
                 border .5px solid #D8D8D8
             &_icon
                 display inline-block
-                widthHeightLineHeightFontSize(3rem, 4.5rem,4.5rem,2.5rem)
+                widthHeightLineHeightFontSize(3rem, 4rem,4rem,2.5rem)
                 border-radius(4rem)
                 color #f1dc4d
             &_text

@@ -100,7 +100,7 @@ export default {
                 display block
                 padding 0 1rem 0 0 
             &-input
-                widthHeightLineHeightFontSize(100%, 1.5rem, 1.5rem, .8rem)
+                widthHeightLineHeightFontSize(100%, 1.5rem, 1rem, .8rem)
                 border none 
                 outline 0
                 border-bottom 1px solid #ffffff

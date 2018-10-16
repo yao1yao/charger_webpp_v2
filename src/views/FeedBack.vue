@@ -3,16 +3,14 @@ div.bg
     div.feedback
         p.feedback__title 您有什么问题或建议想对我们说的?
         div.feedback__item
-            textarea(
-            style="height:2rem;color:black" 
-            class="feedback__item-textarea" 
+            input(
+            class="feedback__item-input" 
             placeholder="您的主题:例如 bug, 新功能等"
             v-model = "title"
             )
             p.feedback__item-count 还可以输入 {{titleLeaveLength}} 个字
         div.feedback__item
             textarea(
-            style="height:9rem;color:black" 
             class="feedback__item-textarea" 
             placeholder="您的宝贵意见就是我们进步的源泉"
             v-model = "content"
@@ -82,13 +80,17 @@ export default {
             font-size .9rem
         &__item
             margin: 1rem 0;
+            &-input
+                widthHeightLineHeightFontSize(100%, 2rem,1rem,.9rem)
+                border 1px solid $color
+                border-radius(10px)
             &-textarea
-                widthHeightLineHeightFontSize(100%, 1rem,1rem,.9rem)
-                color $color
+                widthHeightLineHeightFontSize(100%, 9rem,1rem,.9rem)
+                padding-top .5rem
+                color black
                 border 1px solid $color
                 border-radius(10px)
                 resize none
-                line-height 2rem
             &-count
                 text-align right 
                 font-size .8rem

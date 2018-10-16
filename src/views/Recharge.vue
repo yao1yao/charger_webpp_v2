@@ -132,7 +132,7 @@ export default {
             width 100%
             margin-top 1rem
         &__input
-            widthHeightLineHeightFontSize(95%, 2rem, 2rem, 1rem)
+            widthHeightLineHeightFontSize(95%, 2rem, 1rem, 1rem)
             outline none
             border 1px solid #dbdbdb
             text-indent .5rem

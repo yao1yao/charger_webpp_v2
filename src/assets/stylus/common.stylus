@@ -56,7 +56,11 @@ button
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     text-decoration none
   
-
+input {
+    color: #52bcf8 !important;
+    text-shadow: 0px 0px 0px #495057;
+    -webkit-text-fill-color: transparent;
+}
 
 user-select()
   -webkit-user-select arguments

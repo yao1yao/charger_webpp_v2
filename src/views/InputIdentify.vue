@@ -117,22 +117,27 @@ export default {
             let rechargeMoney=Math.round(this.payForMoney)
             let that = this;
             // 判断是否可用
-            pay({
-                openId,
-                rechargeMoney,
-                userId
-            }).then(function(res){
-                if(res==='success'){
-                    that.$store.dispatch('charger/startCharging',{
-                    openId: openId,
-                    type: that.current,
-                    userId: userId,
-                    chargerNumber: parseInt(that.arr.join('')),
-                    value: that.value,
-                    payType:PAY_TYPE.WECHAT
-                    })
-                }
+            this.$store.dispatch('charger/updateChargerInfo',this.arr.join('')).then(res=>{
+                    pay({
+                    openId,
+                    rechargeMoney,
+                    userId
+                }).then(function(res){
+                    if(res==='success'){
+                        that.$store.dispatch('charger/startCharging',{
+                        openId: openId,
+                        type: that.current,
+                        userId: userId,
+                        chargerNumber: parseInt(that.arr.join('')),
+                        value: that.value,
+                        payType:PAY_TYPE.WECHAT
+                        })
+                    }
+                })
+            }).catch(error=>{
+                console.log(error)
             })
+            // 可用再继续支付
         }
     }
 }

@@ -68,7 +68,6 @@ const actions={
         commit('stateBox/' + STATUS_EVENT.SENDREQUEST, true, {root: true})
         register(data).then(res=>{
             commit('stateBox/' + STATUS_EVENT.SENDREQUEST, false, {root: true})
-
             commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
                 text: res.message,
                 display: true

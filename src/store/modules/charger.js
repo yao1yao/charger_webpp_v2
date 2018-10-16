@@ -92,14 +92,26 @@ const actions={
         })
     },
     [STATUS_EVENT.UPDATE_CHARGER_INFO]({commit},data){
-        updateChargerInfo(data).then(res=>{
-            commit(STATUS_EVENT.UPDATE_CHARGER_INFO,res)
-        }).catch(error=>{
-            commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
-                text: error.errMsg||'服务器开小差了,稍后再试',
-                display: true
-            },{root:true})
+        return new Promise((resolve,reject)=>{
+            updateChargerInfo(data).then(res=>{
+                commit(STATUS_EVENT.UPDATE_CHARGER_INFO,res)
+                return resolve('ok');
+            }).catch(error=>{
+                commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+                    text: error.errMsg||'服务器开小差了,稍后再试',
+                    display: true
+                },{root:true})
+                return reject(error.errMsg)
+            })
         })
+        // updateChargerInfo(data).then((res)=>{
+        //     commit(STATUS_EVENT.UPDATE_CHARGER_INFO,res)
+        // }).catch(error=>{
+            // commit('stateBox/'+STATUS_EVENT.POP_UP_TOAST,{
+            //     text: error.errMsg||'服务器开小差了,稍后再试',
+            //     display: true
+            // },{root:true})
+        // })
     },
     [STATUS_EVENT.START_CHARGING]({commit},data){
         commit('stateBox/' + STATUS_EVENT.SENDREQUEST, true, {root: true})

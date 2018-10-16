@@ -6,7 +6,7 @@ import isWX from './isWX.js'
 export function getLocation(){
     return new Promise((resolve,reject)=>{
         wx.getLocation({
-        type: 'wgs84',
+        type: 'gcj02',
         success:function(res){
             // let latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
             // let longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。

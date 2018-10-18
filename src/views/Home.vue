@@ -112,7 +112,6 @@
                 })
             },
             showChargerInfo (item) {
-                console.log(item)
                 this.addressOrder = item
                 this.chargerInfoShow = true
                 this.searchShow = false

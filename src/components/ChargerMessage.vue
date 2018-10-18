@@ -1,12 +1,12 @@
 <template lang="pug">
     div.charger-info
         div.charger-info__list
-              span 功率
-              strong {{devicePower}} kw/h
-              span 服务费
-              strong {{serviceRate}} 元/度
-              span 电费
-              strong {{energyRate}} 元/度     
+            span 功率
+            strong {{devicePower}} kw/h
+            span 服务费
+            strong {{serviceRate}} 元/度
+            span 电费
+            strong {{energyRate}} 元/度     
 </template>
 <script>
 export default {
@@ -15,20 +15,20 @@ export default {
         // 设备功率
         devicePower:{
             require: true,
-            type: [Number,String]
+            type: [Number]
         },
         serviceRate:{
             require:true,
-            type: [Number,String]
+            type: [Number]
         },
         energyRate:{
             requre: true,
-            type: [Number,String]
+            type: [Number]
         }
     }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="stylus">
     .charger-info
         text-align  center
         &__list

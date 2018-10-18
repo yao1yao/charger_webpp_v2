@@ -1,9 +1,9 @@
 <template lang="pug">
     div.selector
-        div(class="selector__symbol" @click="changeValue(1)") +
+        div(class="selector__symbol-hd" @click="changeValue(1)") +
         div(class="selector__content") {{count.value}}
             span {{count.type}}
-        div(class="selector__symbol" @click="changeValue(-1)") -
+        div(class="selector__symbol-ft" @click="changeValue(-1)") -
 </template>
 
 
@@ -36,11 +36,12 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
     .selector
         width 100%
         text-align center
-        &__symbol
+        &__symbol-hd,
+        &__symbol-ft
             color #52bcf7
             font-size 2rem
             font-weight bold

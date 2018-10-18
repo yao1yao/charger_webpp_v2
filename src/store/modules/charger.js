@@ -146,7 +146,9 @@ const actions={
 }
 const mutations={
     [STATUS_EVENT.UPDATE_CHARGER_INFO](state,chargerInfo){
-        state.chargerInfo = chargerInfo
+        state.chargerInfo.devicePower = parseFloat(chargerInfo.devicePower)
+        state.chargerInfo.serviceRate = parseFloat(chargerInfo.serviceRate)
+        state.chargerInfo.energyRate = parseFloat(chargerInfo.energyRate)
     },
     [STATUS_EVENT.START_CHARGING](state,chargingInfo){
         state.chargingInfo.setDuration = chargingInfo.setDuration

@@ -22,7 +22,36 @@
 </template>
 <script>
   export default {
-    props: ['address','deviceId','status','chargershow','serviceMoney','energyMoney','mapPosition'],
+    props:{
+        address:{
+            require: true,
+            type: String
+        },
+        deviceId:{
+            require: true,
+            type: Number
+        },
+        status:{
+            require: true,
+            type: Number
+        },
+        chargershow:{
+            require: true,
+            type: Boolean
+        },
+        serviceMoney:{
+            require: true,
+            type: Number
+        },
+        energyMoney:{
+            require: true,
+            type: Number
+        },
+        mapPosition:{
+            require: true,
+            type: Array
+        }
+    },
     filters: {
       filter (status) {
         let condition = ''
@@ -50,18 +79,28 @@
     },
     components:{
     },
+    data(){
+        return{
+            lng:0,
+            lat:0,
+            location:''
+        }
+    },
     methods: {
       closeChargerInfo () {  
         this.$emit('close')
       },
       navgit(){
-        this.$emit('navgit',{lng:this.mapPosition[0],lat:this.mapPosition[1],address:this.address}) 
+        this.lng=this.mapPosition[0]
+        this.lat=this.mapPosition[1]
+        this.location = this.address
+        this.$emit('navgit',{lng:this.lng,lat:this.lat,address:this.location}) 
       }
     }
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
     .charger-info
         display none
         position fixed

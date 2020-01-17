@@ -17,7 +17,7 @@ module.exports={
     // webpack-dev-server 相关配置
     devServer:{
         // 配置多个代理
-        port: 8081,
+        port: 8083,
         proxy: {
           "/v1":{
               target: "http://charger.natapp1.cc/",

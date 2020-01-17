@@ -21,12 +21,12 @@ div.bg
                 button(@click="saveFeedBack" class="btn btn-primary" v-bind:disabled="enabled") 提交反馈
 </template>
 <script>
-import {mapState} from 'vuex'
+import {mapState,mapActions} from 'vuex'
 export default {
     name: "FeedBack",
     data(){
         return{
-            titleLength:20,
+            titleLength: 20,
             contentLength: 100,
             title: '',
             content: ''
@@ -55,15 +55,21 @@ export default {
             ...mapState('user', ['userInfo'])
         },
     methods:{
+        ...mapActions('user',['feedback']),
         saveFeedBack(){
             if (!this.title && !this.content) {
                     return
                 }
-                this.$store.dispatch('user/feedback', {
+                this.feeback({
                     tag: this.title,
                     content: this.content,
                     userId: this.userInfo.userId
-                });
+                })
+                // this.$store.dispatch('user/feedback', {
+                //     tag: this.title,
+                //     content: this.content,
+                //     userId: this.userInfo.userId
+                // });
         }
     }
 }

@@ -1,7 +1,7 @@
 <template lang="pug">
     div(class="charger-info" v-bind:class="{'display':chargershow}")
         p(class="charger-info__title") 电桩详情
-            span(@touchstart.stop="closeChargerInfo") x 
+            span( @touchstart.stop="closeChargerInfo") x 
         div.charger-info__list
             p 
                 span.icon-charger-position 位置

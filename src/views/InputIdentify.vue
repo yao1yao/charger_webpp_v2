@@ -1,7 +1,7 @@
 <template lang="pug">
 div.bg
     div.input-identify
-        div(v-on:click="display = false")
+        div(class="input-identify__hd" v-on:click="display = false")
             input-charger-number(:filterBy="filterBy" :display.sync="display" :arr="arr")
             charger-message(class="input-identify__charger-info" v-bind="chargerInfo")
             pay-money(v-bind:current.sync="current" v-bind:value.sync="value")
@@ -11,7 +11,7 @@ div.bg
                 p.input-identify__pay_number {{payForMoney|formatMoney}}
             div.input-identify__pay_item
                 p.input-identify__pay_text 账户余额
-                p.input-identify__pay_number {{balance|formatMoney}}
+                p.input-identify__pay_balance {{balance|formatMoney}}
         div.input-identify__btn-hd
                 button(@click="payBalance" class="btn btn-primary" v-bind:disabled="enabled") 余额支付
         div.input-identify__btn-ft         
@@ -19,7 +19,7 @@ div.bg
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState,mapActions} from 'vuex'
 import {formatMoney} from '../filters/formatMoney.js'
 import InputChargerNumber from '../components/InputChargerNumber'
 import PayMoney from '../components/PayMoney'
@@ -154,7 +154,8 @@ export default {
             margin 0 auto 
             &_item
                 flex 1
-            &_number
+            &_number,
+            &_balance
                 color #B71313
                 font-size .9rem
                 padding-top .2rem

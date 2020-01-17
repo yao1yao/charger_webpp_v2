@@ -2,7 +2,7 @@
     div.input-number
         div.input-number__hd 请输入充电桩编号
         div.input-number__bd
-            span(v-for="(item,index) in arr" class="input-number__bd-i" v-bind:class="{'input-number__bd-on':Byfilter===index}" @click.stop="Byfilter=index;$emit('update:display',true)") {{item}}
+            span(v-for="(item,index) in arr" class="input-number__bd-i" v-bind:class="{'input-number__bd-on':Byfilter===index}" @click.stop="handleClick(index)") {{item}}
         base-key-board(v-bind:display="display" v-on:input="updateChargerNumber") 
 </template>
 <script>
@@ -53,6 +53,10 @@ export default {
                     this.Byfilter=0
                 }
             }    
+        },
+        handleClick(index){
+            this.Byfilter=index;
+            this.$emit('update:display',true)
         }
     }
 }

@@ -32,7 +32,7 @@ export default {
         this.$store.dispatch('record/getChargerReocrd',{
             userId: this.userInfo.userId
         })
-    }
+    },
 }
 
 </script>
